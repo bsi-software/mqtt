@@ -23,7 +23,8 @@ This Client Scanner plugin implements the following HiveMQ Callbacks:
 * A callback when a client subscribes a topic
 * A callback when a client unsubscribes a topic
 
-All changes are published using retained messages to the following topics
+All changes are published using retained messages to the following topics:
+
 * /hivemq/scanner/<clientId>/status
 * /hivemq/scanner/<clientId>/lastlogin
 * /hivemq/scanner/<clientId>/lastlogout
