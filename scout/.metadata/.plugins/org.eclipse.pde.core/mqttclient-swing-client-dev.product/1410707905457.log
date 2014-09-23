@@ -1,0 +1,118 @@
+!SESSION 2014-09-14 17:18:25.207 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_20
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipsescout.mqttclient.ui.swing.product
+Command-line arguments:  -product org.eclipsescout.mqttclient.ui.swing.product -data C:\Users\mzi\Desktop\oss\iot\workspace\ScoutMqttClient/../runtime-mqttclient-swing-client-dev.product -dev file:C:/Users/mzi/Desktop/oss/iot/workspace/ScoutMqttClient/.metadata/.plugins/org.eclipse.pde.core/mqttclient-swing-client-dev.product/dev.properties -os win32 -ws win32 -arch x86_64 -consoleLog
+
+!ENTRY org.eclipse.scout.commons 1 0 2014-09-14 17:18:26.447
+!MESSAGE org.eclipse.scout.commons.ConfigIniUtility.<clinit>(ConfigIniUtility.java:71) Config Bean Properties
+
+!ENTRY org.eclipse.scout.commons 1 0 2014-09-14 17:18:26.450
+!MESSAGE org.eclipse.scout.commons.ConfigIniUtility.getProperties(ConfigIniUtility.java:94) Properties for org.eclipse.scout.rt.client.services.common.code.CodeServiceClientProxy
+
+!ENTRY org.eclipse.scout.commons 1 0 2014-09-14 17:18:26.457
+!MESSAGE org.eclipse.scout.commons.ConfigIniUtility.getProperties(ConfigIniUtility.java:94) Properties for org.eclipse.scout.rt.client.services.common.clientnotification.internal.ClientNotificationConsumerService
+
+!ENTRY org.eclipse.scout.commons 1 0 2014-09-14 17:18:26.467
+!MESSAGE org.eclipse.scout.commons.ConfigIniUtility.getProperties(ConfigIniUtility.java:94) Properties for org.eclipse.scout.rt.client.services.common.security.AccessControlServiceClientProxy
+
+!ENTRY org.eclipse.scout.commons 1 0 2014-09-14 17:18:26.820
+!MESSAGE org.eclipse.scout.commons.ConfigIniUtility.getProperties(ConfigIniUtility.java:94) Properties for org.eclipse.scout.rt.client.services.common.session.internal.ClientSessionRegistryService
+
+!ENTRY org.eclipse.scout.commons 1 0 2014-09-14 17:18:26.844
+!MESSAGE org.eclipse.scout.commons.ConfigIniUtility.getProperties(ConfigIniUtility.java:94) Properties for org.eclipse.scout.rt.client.services.common.icon.IconProviderService
+
+!ENTRY org.eclipse.scout.commons 1 0 2014-09-14 17:18:26.858
+!MESSAGE org.eclipse.scout.commons.ConfigIniUtility.getProperties(ConfigIniUtility.java:94) Properties for org.eclipse.scout.rt.ui.swing.services.common.icon.SwingBundleIconProviderService
+
+!ENTRY org.eclipse.scout.commons 1 0 2014-09-14 17:18:26.872
+!MESSAGE org.eclipse.scout.commons.ConfigIniUtility.getProperties(ConfigIniUtility.java:94) Properties for org.eclipsescout.mqttclient.client.services.LocalCodeService
+
+!ENTRY org.eclipse.scout.commons 1 0 2014-09-14 17:18:27.215
+!MESSAGE org.eclipse.scout.commons.ConfigIniUtility.getProperties(ConfigIniUtility.java:94) Properties for org.eclipse.scout.rt.client.ui.desktop.navigation.internal.NavigationHistoryService
+
+!ENTRY org.eclipse.scout.commons 1 0 2014-09-14 17:18:27.228
+!MESSAGE org.eclipse.scout.commons.ConfigIniUtility.getProperties(ConfigIniUtility.java:94) Properties for org.eclipse.scout.rt.client.services.common.prefs.FileSystemUserPreferencesStorageService
+
+!ENTRY org.eclipse.scout.commons 1 0 2014-09-14 17:18:27.251
+!MESSAGE org.eclipse.scout.commons.ConfigIniUtility.getProperties(ConfigIniUtility.java:94) Properties for org.eclipse.scout.rt.client.services.common.perf.internal.PerformanceAnalyzerService
+
+!ENTRY org.eclipse.scout.commons 1 0 2014-09-14 17:18:27.298
+!MESSAGE org.eclipse.scout.commons.ConfigIniUtility.getProperties(ConfigIniUtility.java:94) Properties for org.eclipse.scout.rt.client.busy.BusyManagerService
+
+!ENTRY org.eclipse.scout.commons 1 0 2014-09-14 17:18:27.301
+!MESSAGE org.eclipse.scout.commons.ConfigIniUtility.getProperties(ConfigIniUtility.java:94) Properties for org.eclipse.scout.rt.client.services.common.session.DefaultClientSessionService
+
+!ENTRY org.eclipse.scout.commons 1 0 2014-09-14 17:18:27.513
+!MESSAGE org.eclipse.scout.commons.ConfigIniUtility.getProperties(ConfigIniUtility.java:94) Properties for org.eclipsescout.mqttclient.client.services.MqttService
+
+!ENTRY org.eclipse.scout.rt.client 2 0 2014-09-14 17:18:39.106
+!MESSAGE org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.setValue(AbstractValueField.java:338) Loop detection in org.eclipsescout.mqttclient.client.ui.forms.DesktopForm$MainBox$ControlBox$ConnectionBox$UserBox$MaskedPasswordField with value null
+!STACK 0
+java.lang.Exception
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.setValue(AbstractValueField.java:337)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.execChangedMasterValue(AbstractValueField.java:671)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractFormField$P_MasterListener.masterChanged(AbstractFormField.java:1789)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.fireMasterChanged(AbstractValueField.java:274)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.setValue(AbstractValueField.java:388)
+	at org.eclipsescout.mqttclient.client.ui.forms.DesktopForm$MainBox$ControlBox$ConnectionBox$UserBox$PasswordField.execChangedMasterValue(DesktopForm.java:766)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractFormField$P_MasterListener.masterChanged(AbstractFormField.java:1789)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.fireMasterChanged(AbstractValueField.java:274)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.setValue(AbstractValueField.java:388)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.parseValue(AbstractValueField.java:568)
+	at org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField$P_UIFacade.setTextFromUI(AbstractStringField.java:405)
+	at org.eclipse.scout.rt.ui.swing.form.fields.SwingScoutBasicFieldComposite$1.run(SwingScoutBasicFieldComposite.java:126)
+	at org.eclipse.scout.rt.ui.swing.concurrency.SwingScoutSynchronizer$1.runVoid(SwingScoutSynchronizer.java:71)
+	at org.eclipse.scout.rt.client.ClientJob.runStatus(ClientJob.java:189)
+	at org.eclipse.scout.rt.client.ClientJob.runTransactionWrapper(ClientJob.java:172)
+	at org.eclipse.scout.rt.client.ClientJob.run(ClientJob.java:159)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.scout.rt.client 2 0 2014-09-14 17:18:46.117
+!MESSAGE org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.setValue(AbstractValueField.java:338) Loop detection in org.eclipsescout.mqttclient.client.ui.forms.DesktopForm$MainBox$ControlBox$ConnectionBox$UserBox$PasswordField with value null
+!STACK 0
+java.lang.Exception
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.setValue(AbstractValueField.java:337)
+	at org.eclipsescout.mqttclient.client.ui.forms.DesktopForm$MainBox$ControlBox$ConnectionBox$UserBox$PasswordField.execChangedMasterValue(DesktopForm.java:766)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractFormField$P_MasterListener.masterChanged(AbstractFormField.java:1789)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.fireMasterChanged(AbstractValueField.java:274)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.setValue(AbstractValueField.java:388)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.execChangedMasterValue(AbstractValueField.java:671)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractFormField$P_MasterListener.masterChanged(AbstractFormField.java:1789)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.fireMasterChanged(AbstractValueField.java:274)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.setValue(AbstractValueField.java:388)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.parseValue(AbstractValueField.java:568)
+	at org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField$P_UIFacade.setTextFromUI(AbstractStringField.java:405)
+	at org.eclipse.scout.rt.ui.swing.form.fields.SwingScoutBasicFieldComposite$1.run(SwingScoutBasicFieldComposite.java:126)
+	at org.eclipse.scout.rt.ui.swing.concurrency.SwingScoutSynchronizer$1.runVoid(SwingScoutSynchronizer.java:71)
+	at org.eclipse.scout.rt.client.ClientJob.runStatus(ClientJob.java:189)
+	at org.eclipse.scout.rt.client.ClientJob.runTransactionWrapper(ClientJob.java:172)
+	at org.eclipse.scout.rt.client.ClientJob.run(ClientJob.java:159)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.scout.rt.client 2 0 2014-09-14 17:18:54.799
+!MESSAGE org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.setValue(AbstractValueField.java:338) Loop detection in org.eclipsescout.mqttclient.client.ui.forms.DesktopForm$MainBox$ControlBox$ConnectionBox$UserBox$MaskedPasswordField with value null
+!STACK 0
+java.lang.Exception
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.setValue(AbstractValueField.java:337)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.execChangedMasterValue(AbstractValueField.java:671)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractFormField$P_MasterListener.masterChanged(AbstractFormField.java:1789)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.fireMasterChanged(AbstractValueField.java:274)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.setValue(AbstractValueField.java:388)
+	at org.eclipsescout.mqttclient.client.ui.forms.DesktopForm$MainBox$ControlBox$ConnectionBox$UserBox$PasswordField.execChangedMasterValue(DesktopForm.java:766)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractFormField$P_MasterListener.masterChanged(AbstractFormField.java:1789)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.fireMasterChanged(AbstractValueField.java:274)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.setValue(AbstractValueField.java:388)
+	at org.eclipse.scout.rt.client.ui.form.fields.AbstractValueField.parseValue(AbstractValueField.java:568)
+	at org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField$P_UIFacade.setTextFromUI(AbstractStringField.java:405)
+	at org.eclipse.scout.rt.ui.swing.form.fields.SwingScoutBasicFieldComposite$1.run(SwingScoutBasicFieldComposite.java:126)
+	at org.eclipse.scout.rt.ui.swing.concurrency.SwingScoutSynchronizer$1.runVoid(SwingScoutSynchronizer.java:71)
+	at org.eclipse.scout.rt.client.ClientJob.runStatus(ClientJob.java:189)
+	at org.eclipse.scout.rt.client.ClientJob.runTransactionWrapper(ClientJob.java:172)
+	at org.eclipse.scout.rt.client.ClientJob.run(ClientJob.java:159)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.scout.rt.client 1 0 2014-09-14 17:19:17.950
+!MESSAGE org.eclipse.scout.rt.client.AbstractClientSession.stopSession(AbstractClientSession.java:382) end session event loop

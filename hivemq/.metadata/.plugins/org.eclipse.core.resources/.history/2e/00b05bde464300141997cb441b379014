@@ -1,0 +1,170 @@
+package com.bsiag.hivemq.scanner.plugin;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.dcsquare.hivemq.spi.message.PUBLISH;
+import com.dcsquare.hivemq.spi.message.QoS;
+import com.dcsquare.hivemq.spi.message.RetainedMessage;
+import com.dcsquare.hivemq.spi.message.Topic;
+import com.dcsquare.hivemq.spi.services.PublishService;
+import com.dcsquare.hivemq.spi.services.RetainedMessageStore;
+import com.google.common.base.Joiner;
+
+public class Scanner {
+
+    public static final String HIVEMQ_SCANNER = "/hivemq/scanner/";
+    public static final String STATUS = "/status";
+    public static final String LASTLOGIN = "/lastlogin";
+    public static final String LASTLOGOUT = "/lastlogout";
+    public static final String STATUS_ONLINE = "online";
+    public static final String STATUS_OFFLINE = "offline";
+    public static final String STATUS_CONNECTION_LOST = "offline (connection lost)";
+    public static final String SUBSCRIBED = "/subscribed";
+    public static final String UNSUBSCRIBED = "/unsubscribed";
+    public static final QoS QOS = QoS.valueOf(1);
+    public static final String TIMESTAMP_FORMAT = "yyyy.MM.dd HH:mm:ss";
+
+    private static Scanner instance;
+    
+    private Map<String, Set<String>> subscribedTopics; 
+    private Map<String, Set<String>> unsubscribedTopics; 
+    
+
+    public Scanner() {
+    	
+    }
+    
+    public static Scanner getInstance() {
+        if(instance == null){
+            synchronized (Scanner.class) {
+                if(instance == null){
+                    instance = new Scanner();
+                    instance.subscribedTopics = new HashMap<String, Set<String>>();
+                    instance.unsubscribedTopics = new HashMap<String, Set<String>>();
+                }
+            }
+        }
+        
+        return instance;
+    }
+    
+    public static void publishOnline(PublishService service, RetainedMessageStore store, String clientId) {
+    	PUBLISH message = createMessage(getTopicStatus(clientId), Scanner.STATUS_ONLINE); 
+    	handleMessage(service, store, message);
+    	
+        if(getInstance().subscribedTopics.get(clientId) == null) {
+        	getInstance().subscribedTopics.put(clientId, new HashSet<String>());	
+        }
+     	
+        if(getInstance().unsubscribedTopics.get(clientId) == null) {
+        	getInstance().unsubscribedTopics.put(clientId, new HashSet<String>());	
+        }
+    }
+    
+    public static void publishOffline(PublishService service, RetainedMessageStore store, String clientId, boolean abruptDisconnect) {
+    	PUBLISH message = createMessage(getTopicStatus(clientId), Scanner.STATUS_OFFLINE); 
+    	
+    	if(abruptDisconnect) {
+    		message = createMessage(getTopicStatus(clientId), Scanner.STATUS_CONNECTION_LOST);
+    	}
+    	
+    	handleMessage(service, store, message);
+    }
+    
+    public static void publishLastlogin(PublishService service, RetainedMessageStore store, String clientId) {
+    	PUBLISH message = createMessage(getTopicLastlogin(clientId), getTimestampString()); 
+    	handleMessage(service, store, message);
+    }
+    
+    public static void publishLastlogout(PublishService service, RetainedMessageStore store, String clientId) {
+    	PUBLISH message = createMessage(getTopicLastlogout(clientId), getTimestampString());
+    	handleMessage(service, store, message);
+    }
+
+	private static void handleMessage(PublishService service, RetainedMessageStore store, PUBLISH message) {
+		RetainedMessage rMessage = createRetainedMessage(message); 
+		service.publish(message);
+		store.addOrReplace(rMessage);
+	}
+    
+    private static String getTopicStatus(String clientId) {
+    	StringBuffer topic = new StringBuffer(Scanner.HIVEMQ_SCANNER);
+    	topic.append(clientId);
+    	topic.append(Scanner.STATUS);
+    	return topic.toString();
+    }
+    
+    private static String getTopicSubscribed(String clientId) {
+    	StringBuffer topic = new StringBuffer(Scanner.HIVEMQ_SCANNER);
+    	topic.append(clientId);
+    	topic.append(Scanner.SUBSCRIBED);
+    	return topic.toString();
+    }
+    
+    private static String getTopicUnubscribed(String clientId) {
+    	StringBuffer topic = new StringBuffer(Scanner.HIVEMQ_SCANNER);
+    	topic.append(clientId);
+    	topic.append(Scanner.UNSUBSCRIBED);
+    	return topic.toString();
+    }
+    
+    private static String getTopicLastlogin(String clientId) {
+    	StringBuffer topic = new StringBuffer(Scanner.HIVEMQ_SCANNER);
+    	topic.append(clientId);
+    	topic.append(Scanner.LASTLOGIN);
+    	return topic.toString();
+    }
+    
+    private static String getTopicLastlogout(String clientId) {
+    	StringBuffer topic = new StringBuffer(Scanner.HIVEMQ_SCANNER);
+    	topic.append(clientId);
+    	topic.append(Scanner.LASTLOGOUT);
+    	return topic.toString();
+    }
+
+    private static String getTimestampString() {
+    	return new SimpleDateFormat(Scanner.TIMESTAMP_FORMAT).format(new Date());
+    }
+        
+    private static PUBLISH createMessage(String topic, String payload) {
+    	PUBLISH message = new PUBLISH();
+    	message.setTopic(topic);
+    	message.setPayload(payload.getBytes());
+    	message.setQoS(QOS);
+    	message.setRetain(true);
+    	return message;
+    }
+    
+    private static RetainedMessage createRetainedMessage(PUBLISH message) {
+    	return new RetainedMessage(message.getTopic(), message.getPayload(), message.getQoS());
+    }
+
+	public static void publishTopics(PublishService service, RetainedMessageStore store, String clientId, 
+			List<Topic> subscribeTopics, List<Topic> unsubscribeTopics) 
+	{
+		Set<String> subscribedTopics = getInstance().subscribedTopics.get(clientId);
+		Set<String> unsubscribedTopics = getInstance().unsubscribedTopics.get(clientId);
+		
+		for(Topic topic: subscribeTopics) {
+			subscribedTopics.add(topic.getTopic());
+			unsubscribedTopics.remove(topic.getTopic());
+		}
+		
+		for(Topic topic: unsubscribeTopics) {
+			subscribedTopics.remove(topic.getTopic());
+			unsubscribedTopics.add(topic.getTopic());
+		}
+		
+    	PUBLISH message = createMessage(getTopicSubscribed(clientId), Joiner.on("\n").join(subscribedTopics));
+    	handleMessage(service, store, message);
+		
+    	message = createMessage(getTopicUnubscribed(clientId), Joiner.on("\n").join(unsubscribedTopics));
+    	handleMessage(service, store, message);		
+	}
+}

@@ -1,0 +1,20 @@
+1411419169052	Rename type 'HelloWorldPluginModule'
+1411419189834	Rename type 'HelloWorldMainClass'
+1411462633178	Extract constant 'HIVEMQ_SCANNER'
+1411462716217	Extract constant 'STATUS'
+1411462878592	Extract constant 'LASTLOGIN'
+1411464023238	Extract constant 'YYYY_MM_DD'
+1411473214623	Rename field 'publishService'
+1411473236030	Rename field 'retainedMessageStore'
+1411476415797	Extract method 'extracted'
+1411476443828	Rename method 'createRetainedMessage'
+1411476488439	Rename local variable 'pubMessage'
+1411476501482	Rename local variable 'pubMessage'
+1411476776547	Rename field 'publishService'
+1411480922715	Copy compilation unit
+1411482361909	Rename field 'clientTopics'
+1411493030868	Copy compilation unit
+1411493666759	Delete element
+1411493671040	Delete element
+1411493675050	Delete element
+1411493681084	Delete element

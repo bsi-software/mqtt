@@ -1,0 +1,58 @@
+package com.bsiag.hivemq.scanner.plugin;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.dcsquare.hivemq.spi.message.PUBLISH;
+import com.dcsquare.hivemq.spi.message.QoS;
+import com.dcsquare.hivemq.spi.services.PublishService;
+
+public class Scanner {
+
+    public static final String TIMESTAMP_FORMAT = "yyyy.MM.dd HH:mm:ss";
+    public static final String LASTLOGIN = "/lastlogin";
+    public static final String STATUS = "/status";
+    public static final String STATUS_ONLINE = "online";
+    public static final String STATUS_OFFLINE = "offline";
+    public static final String HIVEMQ_SCANNER = "/hivemq/scanner/";
+    public static final QoS QOS = QoS.valueOf(1);
+
+
+    public static String getTimestampString() {
+    	return new SimpleDateFormat(Scanner.TIMESTAMP_FORMAT).format(new Date());
+    }
+    
+    public static void publishOnlineMessage(PublishService service, String clientId) {
+    	service.publish(createRetainedMessage(getTopicStatus(clientId), Scanner.STATUS_ONLINE));
+    }
+    
+    public static void publishLastloginMessage(PublishService service, String clientId) {
+    	service.publish(createRetainedMessage(getLastloginStatus(clientId), getTimestampString()));
+    }
+    
+    public static String getTopicStatus(String clientId) {
+    	StringBuffer topic = new StringBuffer(Scanner.HIVEMQ_SCANNER);
+    	topic.append(clientId);
+    	topic.append(Scanner.STATUS);
+    	return topic.toString();
+    }
+    
+    public static String getLastloginStatus(String clientId) {
+    	StringBuffer topic = new StringBuffer(Scanner.HIVEMQ_SCANNER);
+    	topic.append(clientId);
+    	topic.append(Scanner.LASTLOGIN);
+    	return topic.toString();
+    }
+    
+    private static PUBLISH createRetainedMessage(String topic, String payload) {
+    	PUBLISH message = new PUBLISH();
+    	
+    	message.setTopic(topic);
+    	message.setPayload(payload.getBytes());
+    	message.setQoS(QOS);
+    	message.setRetain(true);
+    	
+    	return message;
+    }
+    
+}

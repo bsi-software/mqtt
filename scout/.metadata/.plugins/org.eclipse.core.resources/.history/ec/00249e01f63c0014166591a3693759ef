@@ -1,0 +1,29 @@
+/**
+ *
+ */
+package org.eclipsescout.mqttclient.client.services;
+
+import org.eclipse.scout.commons.exception.ProcessingException;
+import org.eclipse.scout.commons.prefs.UserPreferences;
+import org.eclipse.scout.service.AbstractService;
+
+/**
+ * @author mzi
+ */
+public class UserPreferencesService extends AbstractService implements IUserPreferencesService {
+  private UserPreferences m_pref = null;
+
+  @Override
+  public void load() throws ProcessingException {
+    //TODO [mzi] business logic here.
+
+  }
+
+  @Override
+  public void store() throws ProcessingException {
+    //TODO [mzi] business logic here.
+
+  }
+  
+  
+}

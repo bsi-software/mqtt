@@ -1,0 +1,68 @@
+/**
+ *
+ */
+package org.eclipsescout.mqttclient.client.services;
+
+import org.eclipse.scout.commons.exception.ProcessingException;
+import org.eclipse.scout.commons.prefs.UserPreferences;
+import org.eclipse.scout.rt.shared.TEXTS;
+import org.eclipse.scout.service.AbstractService;
+import org.osgi.service.prefs.BackingStoreException;
+
+/**
+ * @author mzi
+ */
+public class UserPreferencesService extends AbstractService implements IUserPreferencesService {
+  private final String PREF_DOMAIN = "MQTT";
+  private final String PREF_BROKER_URL = "PREF_BROKER_URL";
+  private final String PREF_CLIENT_ID = "PREF_CLIENT_ID";
+
+  private UserPreferences m_pref = null;
+
+  public UserPreferencesService() {
+    super();
+    m_pref = new UserPreferences(PREF_DOMAIN);
+  }
+
+  @Override
+  public void load() throws ProcessingException {
+    m_pref.create();
+    System.out.println("loading prefs from: " + m_pref);
+  }
+
+  @SuppressWarnings("restriction")
+  @Override
+  public void store() throws ProcessingException {
+    try {
+      m_pref.flush();
+    }
+    catch (BackingStoreException e) {
+      throw new ProcessingException(TEXTS.get("PrefFlushFailed"), e);
+    }
+  }
+
+  @SuppressWarnings("restriction")
+  @Override
+  public void setBrokerUrl(String url) throws ProcessingException {
+    m_pref.put(PREF_BROKER_URL, url);
+  }
+
+  @SuppressWarnings("restriction")
+  @Override
+  public String getBrokerUrl() throws ProcessingException {
+    return m_pref.get(PREF_BROKER_URL, null);
+  }
+
+  @SuppressWarnings("restriction")
+  @Override
+  public void setClientId(String id) throws ProcessingException {
+    m_pref.put(PREF_CLIENT_ID, id);
+  }
+
+  @SuppressWarnings("restriction")
+  @Override
+  public String getClientId() throws ProcessingException {
+    return m_pref.get(PREF_CLIENT_ID, null);
+  }
+
+}

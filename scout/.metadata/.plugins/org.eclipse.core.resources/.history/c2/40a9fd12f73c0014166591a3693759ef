@@ -1,0 +1,23 @@
+/**
+ * 
+ */
+package org.eclipsescout.mqttclient.client.services;
+
+import org.eclipse.scout.service.IService;
+import org.eclipse.scout.commons.exception.ProcessingException;
+
+/**
+ * @author mzi
+ */
+public interface IUserPreferencesService extends IService {
+
+  /**
+   * @throws org.eclipse.scout.commons.exception.ProcessingException
+   */
+  void load() throws ProcessingException;
+
+  /**
+   * @throws org.eclipse.scout.commons.exception.ProcessingException
+   */
+  void store() throws ProcessingException;
+}

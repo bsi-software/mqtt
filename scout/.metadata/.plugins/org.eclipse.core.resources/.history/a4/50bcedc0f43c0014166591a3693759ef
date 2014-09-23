@@ -1,0 +1,12 @@
+/**
+ *
+ */
+package org.eclipsescout.mqttclient.client.services;
+
+import org.eclipse.scout.rt.client.services.common.prefs.FileSystemUserPreferencesStorageService;
+
+/**
+ * @author mzi
+ */
+public class UserPreferencesService extends AbstractService implements IUserPreferencesService {
+}

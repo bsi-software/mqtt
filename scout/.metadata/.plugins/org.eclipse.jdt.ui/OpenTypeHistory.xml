@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+<typeInfo handle="=org.eclipsescout.mqttclient.client/src&lt;org.eclipsescout.mqttclient.client{ClientSession.java[ClientSession" modifiers="1" timestamp="1410697309345"/>
+<typeInfo handle="=org.eclipsescout.mqttclient.client/C:\/Users\/mzi\/Desktop\/oss\/epp\/luna\/4.0.0\/eclipse\/plugins\/org.eclipse.scout.rt.client_4.0.0.20140605-0911.jar&lt;org.eclipse.scout.rt.client(ClientSyncJob.class[ClientSyncJob" modifiers="33" timestamp="1402560268000"/>
+<typeInfo handle="=org.eclipsescout.mqttclient.client/C:\/Users\/mzi\/Desktop\/oss\/epp\/luna\/4.0.0\/eclipse\/plugins\/org.eclipse.scout.rt.client_4.0.0.20140605-0911.jar&lt;org.eclipse.scout.rt.client.ui(ClientUIPreferences.class[ClientUIPreferences" modifiers="33" timestamp="1402560268000"/>
+<typeInfo handle="=org.eclipsescout.mqttclient.client/C:\/Users\/mzi\/Desktop\/oss\/epp\/luna\/4.0.0\/eclipse\/plugins\/org.eclipse.scout.rt.client_4.0.0.20140605-0911.jar&lt;org.eclipse.scout.rt.client.services.common.prefs(FileSystemUserPreferencesStorageService.class[FileSystemUserPreferencesStorageService" modifiers="33" timestamp="1402560268000"/>
+<typeInfo handle="=org.eclipsescout.mqttclient.client/C:\/Users\/mzi\/Desktop\/oss\/epp\/luna\/4.0.0\/eclipse\/plugins\/org.eclipse.scout.commons_4.0.0.20140604-0900.jar&lt;org.eclipse.scout.commons.prefs(UserPreferences.class[UserPreferences" modifiers="33" timestamp="1402560267000"/>
+</typeInfoHistroy>

@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+org.eclipse.scout.sdk.ui.view.scoutExplorer.bundleDisplayStyle=grouped
+pref_scout_project_prod_launcher_org.eclipsescout.mqttclient.shared=/org.eclipsescout.mqttclient.ui.rap/products/development/mqttclient-rap-dev.product,/org.eclipsescout.mqttclient.ui.swing/products/development/mqttclient-swing-client-dev.product,/org.eclipsescout.mqttclient.ui.swt/products/development/mqttclient-swt-client-dev.product

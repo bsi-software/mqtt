@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.eclipsescout.mqttclient.shared.services.IMqttService"/>
+<fullyQualifiedTypeName name="org.eclipse.scout.service.SERVICES"/>
+<fullyQualifiedTypeName name="org.eclipsescout.mqttclient.client.services.IMqttService"/>
+<fullyQualifiedTypeName name="org.eclipsescout.mqttclient.client.services.MessageHandlingService"/>
+<fullyQualifiedTypeName name="org.eclipse.scout.service.IService"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="org.eclipse.scout.rt.client.ClientJob"/>
+<fullyQualifiedTypeName name="org.eclipsescout.mqttclient.client.ClientSession"/>
+<fullyQualifiedTypeName name="org.eclipse.scout.commons.NumberUtility"/>
+<fullyQualifiedTypeName name="org.eclipse.scout.commons.BooleanUtility"/>
+<fullyQualifiedTypeName name="org.eclipse.scout.commons.exception.ProcessingException"/>
+<fullyQualifiedTypeName name="org.eclipsescout.mqttclient.client.services.UserPreferencesService"/>
+<fullyQualifiedTypeName name="java.lang.Boolean"/>
+<fullyQualifiedTypeName name="org.eclipse.scout.rt.client.ui.messagebox.MessageBox"/>
+</qualifiedTypeNameHistroy>

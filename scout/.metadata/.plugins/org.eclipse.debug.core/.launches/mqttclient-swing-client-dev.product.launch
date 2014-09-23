@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.pde.ui.RuntimeWorkbench">
+<booleanAttribute key="append.args" value="true"/>
+<stringAttribute key="application" value="org.eclipsescout.mqttclient.ui.swing.app"/>
+<booleanAttribute key="askclear" value="true"/>
+<booleanAttribute key="automaticAdd" value="false"/>
+<booleanAttribute key="clearws" value="false"/>
+<booleanAttribute key="clearwslog" value="false"/>
+<booleanAttribute key="default" value="false"/>
+<stringAttribute key="location" value="${workspace_loc}/../runtime-mqttclient-swing-client-dev.product"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os ${target.os} -ws ${target.ws} -arch ${target.arch} -nl ${target.nl} -consoleLog"/>
+<stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xms256m -Xmx512m  -Xms64m"/>
+<stringAttribute key="pde.version" value="3.3"/>
+<stringAttribute key="product" value="org.eclipsescout.mqttclient.ui.swing.product"/>
+<stringAttribute key="productFile" value="\org.eclipsescout.mqttclient.ui.swing\products\development\mqttclient-swing-client-dev.product"/>
+<stringAttribute key="selected_target_plugins" value="javax.xml@default:default,org.eclipse.osgi@default:default,org.eclipse.equinox.app@default:default,org.eclipse.equinox.registry@default:default,org.eclipse.core.jobs@default:default,org.eclipse.equinox.security@default:default,org.eclipse.scout.net@default:default,org.eclipse.equinox.preferences@default:default,org.eclipse.core.net@default:default,org.eclipse.scout.rt.extension.client@default:default,org.eclipse.scout.service@default:default,org.eclipse.osgi.services@default:default,org.eclipse.equinox.common@default:default,org.eclipse.swt@default:default,org.eclipse.scout.rt.servicetunnel@default:default,org.eclipse.scout.rt.ui.swing@default:default,org.eclipse.update.configurator@default:default,org.eclipse.scout.rt.shared@default:default,org.eclipse.equinox.security.win32.x86_64@default:default,org.eclipse.scout.commons@default:default,org.eclipse.scout.rt.client@default:default,org.eclipse.swt.win32.win32.x86_64@default:default,org.eclipse.core.runtime@default:default,org.eclipse.core.contenttype@default:default,"/>
+<stringAttribute key="selected_workspace_plugins" value="org.eclipsescout.mqttclient.client@default:default,org.eclipse.paho.client@default:default,org.eclipsescout.mqttclient.shared@default:default,org.eclipsescout.mqttclient.ui.swing@default:default,"/>
+<stringAttribute key="templateConfig" value="C:\Users\mzi\Desktop\oss\github\scoutbook\code\mqtt\org.eclipsescout.mqttclient.ui.swing\products\development\config.ini"/>
+<booleanAttribute key="useDefaultConfig" value="false"/>
+<booleanAttribute key="useProduct" value="true"/>
+<booleanAttribute key="usefeatures" value="false"/>
+</launchConfiguration>

@@ -1,0 +1,5 @@
+package com.bsiag.hivemq.scanner.plugin;
+
+public class Scanner {
+
+}
