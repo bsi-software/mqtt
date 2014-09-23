@@ -12,7 +12,7 @@
 
 In order to use this MQTT broker plugin you first need a working {hivemq-link}[HiveMQ] MQTT broker.
 
-This Client Scanner plugin for the {hivemq-link}[HiveMQ] MQTT broker publishes all changes to client stati (connected/disconnectd) as well as all changes to subscribed topics by these clients. 
+This Client Scanner HiveMQ plugin publishes all changes to client stati (connected/disconnectd) as well as all changes to subscribed topics by these clients. 
 
 === What you'll get
 
@@ -23,14 +23,24 @@ This Client Scanner plugin implements the following HiveMQ Callbacks:
 * A callback when a client subscribes a topic
 * A callback when a client unsubscribes a topic
 
+All changes are published using retained messages to the following topics
+* /hivemq/scanner/<clientId>/status
+* /hivemq/scanner/<clientId>/lastlogin
+* /hivemq/scanner/<clientId>/lastlogout
+* /hivemq/scanner/<clientId>/subscribed
+* /hivemq/scanner/<clientId>/unsubscribed
+
+Example usage: To get notified with the current status of all known clients (those who have connected to the broker at least once) subscribe /hivemq/scanner/+/status
+
+
 === Trying the plugin from within the IDE
 
 . Execute the +package+ goal from Maven with the profile _RunWithHiveMQ_ activated. (Need help?: Consult: {maven-documentation-profile-link}[The maven documentation])
 . Now HiveMQ should be running *with* your plugin installed.
 . Connect with a {hivemq-blog-tools}[MQTT client] of your choice and publish something. You should see some log output.
 
-=== Next steps
+=== Trying the plugin in the HiveMQ broker
 
-* Read about the available HiveMQ callbacks {hivemq-callbacks-overview-link}[here]. (There are also low level protocol callbacks available. See {github-low-level-callbacks}[https://github.com/hivemq/hivemq-spi/tree/master/src/main/java/com/dcsquare/hivemq/spi/callback/lowlevel])
-* Implement a great plugin. Bring your JDBC driver and do some database fun. Integrate with your favourite web service. There are no limits :-)
-* Blog about your awesome plugin. Tell us and if you like we can add your plugin to the plugin registry on http://www.hivemq.com
+* Build the plugin using Maven (can be done by executing the +package+ goal) 
+* Copy the resulting 'client-scanner-0.0.1-SNAPSHOT.jar' (found in sub-folder 'client-scanner/target') into the 'plugins' folder of you HiveMQ installation
+* (Re)start the HiveMQ broker
