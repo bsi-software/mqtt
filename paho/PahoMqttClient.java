@@ -10,11 +10,15 @@ public class PahoMqttClient {
     static    String clientId     = "Paho Client";
     static    String user         = "user2";
     static    String password     = "pw2";
-    static    String topic        = "test";
-    static    String content      = "hello world (from paho client)";
-	static    boolean retained    = true;
+    static    String topic        = "/ece/scout/alarm";
+    static    String content      = "arm";
+	static    boolean retained    = false;
 		
     public static void main(String[] args) {
+		if(args.length == 1) {
+			content = args[0];
+		}
+		
 		printConfiguration();
 		
         try {
@@ -45,7 +49,7 @@ public class PahoMqttClient {
 		System.out.println("Setting password to '"+password+"'");
 		System.out.println("Setting topic to '"+topic+"'");
 		System.out.println("Setting content to '"+content+"'");
-		System.out.println("Setting retained to true");
+		System.out.println("Setting retained to "+retained);
 		System.out.println();
 	}
 }

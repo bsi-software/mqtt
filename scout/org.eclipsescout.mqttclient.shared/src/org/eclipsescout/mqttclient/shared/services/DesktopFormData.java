@@ -59,6 +59,10 @@ public class DesktopFormData extends AbstractFormData {
     return getFieldByClass(HidePassword.class);
   }
 
+  public Light getLight() {
+    return getFieldByClass(Light.class);
+  }
+
   public MaskedPassword getMaskedPassword() {
     return getFieldByClass(MaskedPassword.class);
   }
@@ -223,6 +227,23 @@ public class DesktopFormData extends AbstractFormData {
     private static final long serialVersionUID = 1L;
 
     public HidePassword() {
+    }
+  }
+
+  public static class Light extends AbstractValueFieldData<String> {
+
+    private static final long serialVersionUID = 1L;
+
+    public Light() {
+    }
+
+    /**
+     * list of derived validation rules.
+     */
+    @Override
+    protected void initValidationRules(Map<String, Object> ruleMap) {
+      super.initValidationRules(ruleMap);
+      ruleMap.put(ValidationRule.MAX_LENGTH, 4000);
     }
   }
 

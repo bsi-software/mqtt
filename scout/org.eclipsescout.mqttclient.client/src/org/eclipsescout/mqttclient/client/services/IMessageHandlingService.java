@@ -16,15 +16,17 @@ public interface IMessageHandlingService extends IService {
   /**
    * @param topic
    * @param message
+   * @param payload
    * @param qos
    * @param retained
    * @param received
    * @throws ProcessingException
    */
-  void handleMessage(String topic, String message, int qos, boolean retained, Date received) throws ProcessingException;
+  void handleMessage(String topic, String message, byte[] payload, int qos, boolean retained, Date received) throws ProcessingException;
 
   /**
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
   void handleDisconnect() throws ProcessingException;
+
 }

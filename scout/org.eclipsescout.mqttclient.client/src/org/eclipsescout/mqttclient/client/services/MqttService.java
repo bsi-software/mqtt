@@ -125,10 +125,11 @@ public class MqttService extends AbstractService implements IMqttService, MqttCa
   }
 
   @Override
-  public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
+  public void messageArrived(final String topic, MqttMessage mqttMessage) throws Exception {
     s_logger.info("mqtt message arrived. message " + topic + ":'" + new String(mqttMessage.getPayload()) + "' qos=" + mqttMessage.getQos() + " retained=" + mqttMessage.isRetained());
 
-    final String message = new String(mqttMessage.getPayload());
+    final byte[] payload = mqttMessage.getPayload();
+    final String message = new String(payload);
     final int qos = mqttMessage.getQos();
     final boolean retained = mqttMessage.isRetained();
     final Date received = new Date();
@@ -143,7 +144,7 @@ public class MqttService extends AbstractService implements IMqttService, MqttCa
             @Override
             protected void runVoid(IProgressMonitor monitor1) throws Throwable {
               MessageHandlingService service = SERVICES.getService(MessageHandlingService.class);
-              service.handleMessage(topic, message, qos, retained, received);
+              service.handleMessage(topic, message, payload, qos, retained, received);
             }
           }.schedule();
         }

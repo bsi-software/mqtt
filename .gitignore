@@ -1,0 +1,4 @@
+# code stuff
+*/.metadata/**/*
+*/bin/**/*
+*.class

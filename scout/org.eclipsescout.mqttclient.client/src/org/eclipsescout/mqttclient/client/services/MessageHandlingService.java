@@ -20,12 +20,27 @@ import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBo
 public class MessageHandlingService extends AbstractService implements IMessageHandlingService {
 
   @Override
-  public void handleMessage(String topic, String message, int qos, boolean retained, Date received) throws ProcessingException {
+  public void handleMessage(String topic, String message, byte[] payload, int qos, boolean retained, Date received) throws ProcessingException {
     DesktopForm desktopForm = getDesktopForm();
 
     if (desktopForm != null) {
       AbstractTable table = desktopForm.getMessagesField().getTable();
       table.addRowByArray(new Object[]{message, topic, received, qos, retained});
+
+      if (topic.equals("/ece/scout/alarm")) {
+        if (message.equals("on")) {
+          desktopForm.getLightField().setBackgroundColor("FF0000");
+        }
+        else {
+          desktopForm.getLightField().setBackgroundColor(null);
+        }
+      }
+      else if (topic.equals("/ece/scout/light")) {
+        desktopForm.getLightField().setValue(message);
+      }
+      else if (topic.equals("image")) {
+        desktopForm.getSelfieField().setImage(payload);
+      }
     }
   }
 

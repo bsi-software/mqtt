@@ -29,6 +29,7 @@ import org.eclipse.scout.rt.client.ui.form.fields.booleanfield.AbstractBooleanFi
 import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractButton;
 import org.eclipse.scout.rt.client.ui.form.fields.checkbox.AbstractCheckBox;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
+import org.eclipse.scout.rt.client.ui.form.fields.imagebox.AbstractImageField;
 import org.eclipse.scout.rt.client.ui.form.fields.integerfield.AbstractIntegerField;
 import org.eclipse.scout.rt.client.ui.form.fields.sequencebox.AbstractSequenceBox;
 import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
@@ -42,6 +43,12 @@ import org.eclipse.scout.service.SERVICES;
 import org.eclipsescout.mqttclient.client.services.MqttService;
 import org.eclipsescout.mqttclient.client.services.UserPreferencesService;
 import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.AlarmBox;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.AlarmBox.ButtonsBox;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.AlarmBox.ButtonsBox.LightField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.AlarmBox.ButtonsBox.OffButton;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.AlarmBox.ButtonsBox.OnButton;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.AlarmBox.SelfieField;
 import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox;
 import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.ClientBox;
 import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.ClientBox.BrokerURLField;
@@ -66,10 +73,6 @@ import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBo
 import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.UserBox.MaskedPasswordField;
 import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.UserBox.PasswordField;
 import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.UserBox.UserNameField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.LampBox;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.LampBox.ButtonsBox;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.LampBox.ButtonsBox.OffButton;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.LampBox.ButtonsBox.OnButton;
 import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.MessagesBox;
 import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.MessagesBox.MessagesField;
 import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.MessagesBox.PublishBox;
@@ -274,10 +277,10 @@ public class DesktopForm extends AbstractForm {
   }
 
   /**
-   * @return the LampBox
+   * @return the AlarmBox
    */
-  public LampBox getLampBox() {
-    return getFieldByClass(LampBox.class);
+  public AlarmBox getAlarmBox() {
+    return getFieldByClass(AlarmBox.class);
   }
 
   /**
@@ -285,6 +288,13 @@ public class DesktopForm extends AbstractForm {
    */
   public LastWillAndTestamentBox getLastWillAndTestamentBox() {
     return getFieldByClass(LastWillAndTestamentBox.class);
+  }
+
+  /**
+   * @return the LightField
+   */
+  public LightField getLightField() {
+    return getFieldByClass(LightField.class);
   }
 
   /**
@@ -435,6 +445,13 @@ public class DesktopForm extends AbstractForm {
   }
 
   /**
+   * @return the SelfieField
+   */
+  public SelfieField getSelfieField(){
+    return getFieldByClass(SelfieField.class);
+  }
+
+  /**
    * @return the StatusBox
    */
   public StatusBox getStatusBox() {
@@ -515,31 +532,60 @@ public class DesktopForm extends AbstractForm {
       }
 
       @Order(10.0)
-      public class LampBox extends AbstractGroupBox {
+      public class AlarmBox extends AbstractGroupBox {
+
+        @Override
+        protected int getConfiguredGridColumnCount() {
+          return 1;
+        }
 
         @Override
         protected String getConfiguredLabel() {
-          return TEXTS.get("Lamp");
+          return TEXTS.get("Alarm");
         }
 
         @Order(10.0)
         public class ButtonsBox extends AbstractSequenceBox {
 
           @Order(10.0)
+          public class LightField extends AbstractStringField {
+
+            @Override
+            protected double getConfiguredGridWeightX() {
+              return 0.0;
+            }
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("Light");
+            }
+
+            @Override
+            protected int getConfiguredLabelHorizontalAlignment() {
+              return 1;
+            }
+
+            @Override
+            protected int getConfiguredWidthInPixel() {
+              return 150;
+            }
+          }
+
+          @Order(30.0)
           public class OnButton extends AbstractButton {
 
             @Override
             protected String getConfiguredLabel() {
-              return TEXTS.get("On");
+              return TEXTS.get("Arm");
             }
 
             @Override
             protected void execClickAction() throws ProcessingException {
-              getMqttService().publish("inTopic", "on", 1, false);
+              getMqttService().publish("/ece/scout/armed", "arm", 1, false);
             }
           }
 
-          @Order(20.0)
+          @Order(40.0)
           public class OffButton extends AbstractButton {
 
             @Override
@@ -549,8 +595,37 @@ public class DesktopForm extends AbstractForm {
 
             @Override
             protected void execClickAction() throws ProcessingException {
-              getMqttService().publish("inTopic", "off", 1, false);
+              getMqttService().publish("/ece/scout/armed", "disarm", 1, false);
             }
+          }
+        }
+
+        @Order(20.0)
+        public class SelfieField extends AbstractImageField {
+
+          @Override
+          protected int getConfiguredGridH() {
+            return 6;
+          }
+
+          @Override
+          protected int getConfiguredHeightInPixel() {
+            return 500;
+          }
+
+          @Override
+          protected int getConfiguredHorizontalAlignment() {
+            return -1;
+          }
+
+          @Override
+          protected String getConfiguredLabel() {
+            return TEXTS.get("Selfie");
+          }
+
+          @Override
+          protected int getConfiguredWidthInPixel() {
+            return 500;
           }
         }
       }
