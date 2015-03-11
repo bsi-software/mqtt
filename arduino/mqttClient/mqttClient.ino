@@ -5,9 +5,9 @@
 // Mqtt setup
 byte  MQTT_SERVER[]      = {192, 168, 43, 191}; // use {198, 41, 30, 241} for iot.eclipse.org
 char* MQTT_CLIENT_ID     = "MziArduino";
-char* MQTT_TOPIC_COMMAND = "/eclipse/scout/arduino/";
-char* MQTT_TOPIC_STATUS  = "/eclipse/scout/arduino/status";
-char* MQTT_TOPIC_LDR     = "/eclipse/scout/arduino/ldr";
+char* MQTT_TOPIC_COMMAND = "eclipse/scout/arduino/";
+char* MQTT_TOPIC_STATUS  = "eclipse/scout/arduino/status";
+char* MQTT_TOPIC_LDR     = "eclipse/scout/arduino/ldr";
 char* MQTT_RELAIS_ON     = "RELAIS ON";
 char* MQTT_RELAIS_OFF    = "RELAIS OFF";
 char* MQTT_LDR_GET       = "LDR GET";
@@ -20,8 +20,8 @@ void         mqttCallback(char* topic, byte* payload, unsigned int length);
 PubSubClient mqttClient(MQTT_SERVER, MQTT_PORT, mqttCallback, wlanClient);
 
 // Wlan setup
-char* SSID_NAME = "<your wifi name>";
-char* PASS      = "<your wifi password>";
+char* SSID_NAME = "AndroidPrivateHotspot";
+char* PASS      = "stechberg";
 
 // Electronics setup
 // pins 4,7,10-13 are used by wlan shield

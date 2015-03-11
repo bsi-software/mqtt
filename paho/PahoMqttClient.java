@@ -6,17 +6,16 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class PahoMqttClient {
 
-    static    String broker       = "tcp://localhost:1883";
+    static    String broker       = "tcp://192.168.43.191:1883"; // or use "tcp://iot.eclipse.org:1883"
     static    String clientId     = "Paho Client";
-    static    String user         = "user2";
-    static    String password     = "pw2";
-    static    String topic        = "/ece/scout/alarm";
-    static    String content      = "arm";
+    static    String topic        = "eclipse/scout/arduino/";
+    static    String content      = "RELAIS ON";
 	static    boolean retained    = false;
 		
     public static void main(String[] args) {
-		if(args.length == 1) {
-			content = args[0];
+		if(args.length == 2) {
+		    topic = args[0];
+			content = args[1];
 		}
 		
 		printConfiguration();
@@ -27,8 +26,6 @@ public class PahoMqttClient {
             MqttConnectOptions opts        = new MqttConnectOptions();
             MqttMessage        message     = new MqttMessage(content.getBytes());
 			
-            opts.setUserName(user);
-            opts.setPassword(password.toCharArray());
 			message.setRetained(retained);
 			
             client.connect(opts);             System.out.println("Connected to broker");			
@@ -45,8 +42,6 @@ public class PahoMqttClient {
 	private static void printConfiguration() {
         System.out.println("Setting broker to '"+broker+"'");
 		System.out.println("Setting clientId to '"+clientId+"'");
-		System.out.println("Setting user to '"+user+"'");
-		System.out.println("Setting password to '"+password+"'");
 		System.out.println("Setting topic to '"+topic+"'");
 		System.out.println("Setting content to '"+content+"'");
 		System.out.println("Setting retained to "+retained);
