@@ -1,7 +1,5 @@
-mqtt
+IoT Setup with open source components
 ====
-
-MQTT Components for Broker, Paho Client, Scout Client, and Arduino Client. 
 
 For the Javaland 15 setup you need the following hardware:
 * arduino uno with an arduino wifi shield
@@ -10,4 +8,10 @@ For the Javaland 15 setup you need the following hardware:
 * a raspberry pi
 * any computer
 * a mobile phone/tablet
+
+For the software you need the following components:
+* eclipse paho
+* eclipse mosquitto
+* eclipse scout
+* arduino ide
 
