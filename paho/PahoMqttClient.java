@@ -6,7 +6,7 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class PahoMqttClient {
 
-    static    String broker       = "tcp://192.168.43.191:1883"; // or use "tcp://iot.eclipse.org:1883"
+    static    String broker       = "tcp://<your mqtt broker address>:1883"; // or use "tcp://iot.eclipse.org:1883"
     static    String clientId     = "Paho Client";
     static    String topic        = "eclipse/scout/arduino/";
     static    String content      = "RELAIS ON";

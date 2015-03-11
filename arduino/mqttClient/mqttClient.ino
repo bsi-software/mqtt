@@ -3,7 +3,7 @@
 #include <PubSubClient.h>
 
 // Mqtt setup
-byte  MQTT_SERVER[]      = {192, 168, 43, 191}; // use {198, 41, 30, 241} for iot.eclipse.org
+byte  MQTT_SERVER[]      = {<your mqtt broker ip>}; // use {198, 41, 30, 241} for iot.eclipse.org
 char* MQTT_CLIENT_ID     = "MziArduino";
 char* MQTT_TOPIC_COMMAND = "eclipse/scout/arduino/";
 char* MQTT_TOPIC_STATUS  = "eclipse/scout/arduino/status";
@@ -20,8 +20,8 @@ void         mqttCallback(char* topic, byte* payload, unsigned int length);
 PubSubClient mqttClient(MQTT_SERVER, MQTT_PORT, mqttCallback, wlanClient);
 
 // Wlan setup
-char* SSID_NAME = "AndroidPrivateHotspot";
-char* PASS      = "stechberg";
+char* SSID_NAME = "<your wlan name>";
+char* PASS      = "<your wlan password>";
 
 // Electronics setup
 // pins 4,7,10-13 are used by wlan shield
