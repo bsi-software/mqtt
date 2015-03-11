@@ -2,7 +2,7 @@ IoT Setup with open source components
 ====
 ![Arduino lamp off](/images/arduino_lamp_off_on.png)
 
-For the Javaland 15 setup you need the following hardware:
+Hardware:
 * arduino uno with an arduino wifi shield
 * some LEDs, an LDR a normal resitor, cables and a relais
 * a modified power cable, and a desktop lamp
@@ -10,7 +10,7 @@ For the Javaland 15 setup you need the following hardware:
 * any computer
 * a mobile phone/tablet
 
-For the software you need the following components:
+Software:
 * eclipse paho
 * eclipse mosquitto
 * eclipse scout
