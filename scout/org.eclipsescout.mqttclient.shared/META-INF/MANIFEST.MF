@@ -6,7 +6,8 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipsescout.mqttclient.shared.Activator
 Export-Package: org.eclipsescout.mqttclient.shared,
  org.eclipsescout.mqttclient.shared.services,
- org.eclipsescout.mqttclient.shared.services.common.text
+ org.eclipsescout.mqttclient.shared.services.common.text,
+ org.eclipsescout.mqttclient.shared.ui.template.formfield
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.scout.rt.shared;visibility:=reexport
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

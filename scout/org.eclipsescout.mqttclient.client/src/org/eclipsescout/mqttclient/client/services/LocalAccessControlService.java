@@ -1,6 +1,13 @@
-/**
+/*******************************************************************************
+ * Copyright (c) 2014 BSI Business Systems Integration AG.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- */
+ * Contributors:
+ *     BSI Business Systems Integration AG - initial API and implementation
+ ******************************************************************************/
 package org.eclipsescout.mqttclient.client.services;
 
 import java.security.AllPermission;
@@ -11,6 +18,13 @@ import java.util.Collection;
 import org.eclipse.scout.rt.shared.services.common.security.IAccessControlService;
 import org.eclipse.scout.service.AbstractService;
 
+/**
+ * Minimal access control service.
+ * This service may be used for Scout client only applications without any user management.
+ * Usage of this service in client server applications is not recommended.
+ * Instead, extend {@link AbstractAccessControlService} as a server service for a standard
+ * client server setup.
+ */
 public class LocalAccessControlService extends AbstractService implements IAccessControlService {
 
   private final Permissions m_permissions;

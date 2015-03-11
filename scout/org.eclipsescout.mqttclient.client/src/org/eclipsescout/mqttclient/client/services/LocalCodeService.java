@@ -1,6 +1,13 @@
-/**
+/*******************************************************************************
+ * Copyright (c) 2014 BSI Business Systems Integration AG.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- */
+ * Contributors:
+ *     BSI Business Systems Integration AG - initial API and implementation
+ ******************************************************************************/
 package org.eclipsescout.mqttclient.client.services;
 
 import java.lang.reflect.Modifier;
@@ -31,7 +38,10 @@ import org.eclipse.scout.service.SERVICES;
 import org.osgi.framework.Bundle;
 
 /**
- * delegates to {@link CodeTypeStore}
+ * A simple local code service that may be used for Scout client only applications.
+ * Usage of this service in client server applications is not recommended.
+ * For client server applications use {@link org.eclipse.scout.rt.client.services.common.code.CodeServiceClientProxy} on
+ * the client side and {@link org.eclipse.scout.rt.server.services.common.code.CodeService} on the server side.
  */
 @Priority(1)
 public class LocalCodeService extends AbstractService implements ICodeService {

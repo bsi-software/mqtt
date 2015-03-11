@@ -176,4 +176,16 @@ public interface IUserPreferencesService extends IService {
    * @throws ProcessingException
    */
   String getDefaultRetained() throws ProcessingException;
+
+  /**
+   * @return
+   * @throws org.eclipse.scout.commons.exception.ProcessingException
+   */
+  boolean getSaveUserPrefs() throws ProcessingException;
+
+  /**
+   * @param savePrefs
+   * @throws org.eclipse.scout.commons.exception.ProcessingException
+   */
+  void setSaveUserPrefs(boolean savePrefs) throws ProcessingException;
 }

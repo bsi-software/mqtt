@@ -3,6 +3,7 @@
  */
 package org.eclipsescout.mqttclient.client.services;
 
+import org.eclipse.scout.commons.StringUtility;
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.commons.prefs.UserPreferences;
 import org.eclipse.scout.rt.shared.TEXTS;
@@ -32,6 +33,7 @@ public class UserPreferencesService extends AbstractService implements IUserPref
   private static final String PREF_DEFAULT_QOS = "PREF_DEFAULT_QOS";
   private static final String PREF_DEFAULT_RETAINED = "PREF_DEFAULT_RETAINED";
 
+  private static final String SAVE_USER_PREFS = "false";
   private static final String BROKER_URL = "tcp://localhost:1883";
   private static final String CLIENT_ID = "ScoutMqttClient";
   private static final String USER_NAME = "user1";
@@ -47,6 +49,7 @@ public class UserPreferencesService extends AbstractService implements IUserPref
   private static final String DEFAULT_RETAINED = "false";
 
   private UserPreferences m_pref = null;
+  private boolean m_saveUserPrefs = false;
 
   public UserPreferencesService() {
     super();
@@ -55,7 +58,9 @@ public class UserPreferencesService extends AbstractService implements IUserPref
 
   @Override
   public void load() throws ProcessingException {
-    m_pref.create();
+    if (m_saveUserPrefs) {
+      m_pref.create();
+    }
   }
 
   @SuppressWarnings("restriction")
@@ -96,13 +101,13 @@ public class UserPreferencesService extends AbstractService implements IUserPref
   @SuppressWarnings("restriction")
   @Override
   public void setUserName(String userName) throws ProcessingException {
-    m_pref.put(PREF_USER_NAME, userName);
+    m_pref.put(PREF_USER_NAME, StringUtility.nvl(userName, ""));
   }
 
   @SuppressWarnings("restriction")
   @Override
   public void setPassword(String password) throws ProcessingException {
-    m_pref.put(PREF_PASSWORD, password);
+    m_pref.put(PREF_PASSWORD, StringUtility.nvl(password, ""));
   }
 
   @SuppressWarnings("restriction")
@@ -223,5 +228,15 @@ public class UserPreferencesService extends AbstractService implements IUserPref
   @Override
   public String getDefaultRetained() throws ProcessingException {
     return m_pref.get(PREF_DEFAULT_RETAINED, DEFAULT_RETAINED);
+  }
+
+  @Override
+  public boolean getSaveUserPrefs() throws ProcessingException {
+    return m_saveUserPrefs;
+  }
+
+  @Override
+  public void setSaveUserPrefs(boolean savePrefs) throws ProcessingException {
+    m_saveUserPrefs = savePrefs;
   }
 }

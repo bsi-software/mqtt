@@ -7,7 +7,8 @@ Bundle-Activator: org.eclipsescout.mqttclient.client.Activator
 Export-Package: org.eclipsescout.mqttclient.client,
  org.eclipsescout.mqttclient.client.services,
  org.eclipsescout.mqttclient.client.ui.desktop,
- org.eclipsescout.mqttclient.client.ui.forms
+ org.eclipsescout.mqttclient.client.ui.forms,
+ org.eclipsescout.mqttclient.client.ui.template.formfield
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.scout.rt.client;visibility:=reexport,
  org.eclipse.scout.rt.extension.client;visibility:=reexport,

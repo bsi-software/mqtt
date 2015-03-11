@@ -18,6 +18,7 @@ import org.eclipse.scout.rt.client.ui.action.menu.IMenuType;
 import org.eclipse.scout.rt.client.ui.action.menu.TableMenuType;
 import org.eclipse.scout.rt.client.ui.action.menu.TreeMenuType;
 import org.eclipse.scout.rt.client.ui.action.menu.ValueFieldMenuType;
+import org.eclipse.scout.rt.client.ui.basic.cell.Cell;
 import org.eclipse.scout.rt.client.ui.basic.table.ITableRow;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractBooleanColumn;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractDateTimeColumn;
@@ -29,7 +30,6 @@ import org.eclipse.scout.rt.client.ui.form.fields.booleanfield.AbstractBooleanFi
 import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractButton;
 import org.eclipse.scout.rt.client.ui.form.fields.checkbox.AbstractCheckBox;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
-import org.eclipse.scout.rt.client.ui.form.fields.imagebox.AbstractImageField;
 import org.eclipse.scout.rt.client.ui.form.fields.integerfield.AbstractIntegerField;
 import org.eclipse.scout.rt.client.ui.form.fields.sequencebox.AbstractSequenceBox;
 import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
@@ -42,57 +42,71 @@ import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.service.SERVICES;
 import org.eclipsescout.mqttclient.client.services.MqttService;
 import org.eclipsescout.mqttclient.client.services.UserPreferencesService;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.AlarmBox;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.AlarmBox.ButtonsBox;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.AlarmBox.ButtonsBox.LightField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.AlarmBox.ButtonsBox.OffButton;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.AlarmBox.ButtonsBox.OnButton;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.AlarmBox.SelfieField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.ClientBox;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.ClientBox.BrokerURLField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.ClientBox.ClientIdField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.LastWillAndTestamentBox;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.LastWillAndTestamentBox.WillMessageField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.LastWillAndTestamentBox.WillQoSField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.LastWillAndTestamentBox.WillRetainedField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.LastWillAndTestamentBox.WillTopicField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.PublishParametersBox;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.PublishParametersBox.DefaultQoSField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.PublishParametersBox.DefaultRetainedField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.PublishParametersBox.DefaultTopicField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.StatusBox;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.StatusBox.ConnectButton;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.StatusBox.DisconnectButton;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.StatusBox.StatusField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.UserBox;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.UserBox.CleanSessionField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.UserBox.ConnectionTimeoutField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.UserBox.HidePasswordField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.UserBox.MaskedPasswordField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.UserBox.PasswordField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.ConnectionBox.UserBox.UserNameField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.MessagesBox;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.MessagesBox.MessagesField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.MessagesBox.PublishBox;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.MessagesBox.PublishBox.MessageField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.MessagesBox.PublishBox.PublishButton;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.MessagesBox.PublishBox.TopicField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.SubscriptionsBox;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.SubscriptionsBox.SubscribeBox;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.SubscriptionsBox.SubscribeBox.SubscribeButton;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.SubscriptionsBox.SubscribeBox.TopicFilterField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.SubscriptionsBox.SubscribeBox.TopicQoSField;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.SubscriptionsBox.SubscribeBox.UnsubscribeButton;
-import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.ControlBox.SubscriptionsBox.SubscriptionsField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.BrokerURLField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.ClientIdField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.LastWillAndTestamentBox;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.LastWillAndTestamentBox.WillMessageField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.LastWillAndTestamentBox.WillQoSField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.LastWillAndTestamentBox.WillRetainedField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.LastWillAndTestamentBox.WillTopicField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.PublishParametersBox;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.PublishParametersBox.DefaultQoSField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.PublishParametersBox.DefaultRetainedField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.PublishParametersBox.DefaultTopicField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.ShowConnectionConfigurationField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.StatusBox;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.StatusBox.ConnectButton;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.StatusBox.DisconnectButton;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.StatusBox.StatusField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.UserBox;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.UserBox.CleanSessionField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.UserBox.ConnectionTimeoutField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.UserBox.HidePasswordField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.UserBox.MaskedPasswordField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.UserBox.PasswordField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ConnectionBox.UserBox.UserNameField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ControlBox;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ControlBox.ActionButtonsBox;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ControlBox.ActionButtonsBox.Action1Button;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ControlBox.ActionButtonsBox.Action2Button;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ControlBox.ActionButtonsBox.Action3Button;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ControlBox.ConfigureActionsBox;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ControlBox.ConfigureActionsBox.Control1Box;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ControlBox.ConfigureActionsBox.Control2Box;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ControlBox.ConfigureActionsBox.Control3Box;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ControlBox.ConfigureSensorsBox;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ControlBox.ConfigureSensorsBox.Sensor1Box;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ControlBox.ConfigureSensorsBox.Sensor2Box;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ControlBox.ConfigureSensorsBox.Sensor3Box;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ControlBox.Sensor1Field;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ControlBox.Sensor2Field;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ControlBox.Sensor3Field;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.ControlBox.ShowConfigurationField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.MessagesBox;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.MessagesBox.MessagesField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.MessagesBox.PublishBox;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.MessagesBox.PublishBox.MessageField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.MessagesBox.PublishBox.PublishButton;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.MessagesBox.PublishBox.TopicField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.SubscriptionsBox;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.SubscriptionsBox.SubscribeBox;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.SubscriptionsBox.SubscribeBox.SubscribeButton;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.SubscriptionsBox.SubscribeBox.TopicFilterField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.SubscriptionsBox.SubscribeBox.TopicQoSField;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.SubscriptionsBox.SubscribeBox.UnsubscribeButton;
+import org.eclipsescout.mqttclient.client.ui.forms.DesktopForm.MainBox.DesktopBox.SubscriptionsBox.SubscriptionsField;
+import org.eclipsescout.mqttclient.client.ui.template.formfield.AbstractActionButton;
+import org.eclipsescout.mqttclient.client.ui.template.formfield.AbstractControlFieldBox;
+import org.eclipsescout.mqttclient.client.ui.template.formfield.AbstractSensorBox;
+import org.eclipsescout.mqttclient.client.ui.template.formfield.AbstractSensorField;
 import org.eclipsescout.mqttclient.shared.Icons;
-import org.eclipsescout.mqttclient.shared.services.DesktopFormData;
 
 /**
  * @author mzi
  */
-@FormData(value = DesktopFormData.class, sdkCommand = FormData.SdkCommand.CREATE)
+@FormData(sdkCommand = FormData.SdkCommand.IGNORE)
 public class DesktopForm extends AbstractForm {
 
   /**
@@ -157,6 +171,26 @@ public class DesktopForm extends AbstractForm {
 
     UserPreferencesService prefs = SERVICES.getService(UserPreferencesService.class);
 
+    // set parameters for current demo
+    String baseTopic = "/eclipse/scout/arduino/";
+
+    getControl1Box().getLabelField().setValue(" ON ");
+    getControl1Box().getTopicField().setValue(baseTopic);
+    getControl1Box().getMessageField().setValue("RELAIS ON");
+
+    getControl2Box().getLabelField().setValue(" OFF ");
+    getControl2Box().getTopicField().setValue(baseTopic);
+    getControl2Box().getMessageField().setValue("RELAIS OFF");
+
+    getControl3Box().getLabelField().setValue(" LDR ");
+    getControl3Box().getTopicField().setValue(baseTopic);
+    getControl3Box().getMessageField().setValue("LDR GET");
+
+    getSensor1Box().getLabelField().setValue("LDR Value");
+    getSensor1Box().getTopicField().setValue(baseTopic + "ldr");
+    getSensor2Box().getLabelField().setValue("--");
+    getSensor3Box().getLabelField().setValue("--");
+
     try {
       prefs.load();
 
@@ -181,15 +215,7 @@ public class DesktopForm extends AbstractForm {
       MessageBox.showOkMessage(TEXTS.get("MQTTClient"), TEXTS.get("PrefExeption"), e.getMessage());
     }
 
-    getControlBox().setSelectedTab(getConnectionBox());
-  }
-
-  private DesktopFormData getFormData()
-      throws ProcessingException
-  {
-    DesktopFormData formData = new DesktopFormData();
-    exportFormData(formData);
-    return formData;
+    getDesktopBox().setSelectedTab(getConnectionBox());
   }
 
   /**
@@ -207,31 +233,38 @@ public class DesktopForm extends AbstractForm {
   }
 
   /**
-   * @return the ButtonsBox
-   */
-  public ButtonsBox getButtonsBox() {
-    return getFieldByClass(ButtonsBox.class);
-  }
-
-  /**
    * @return the CleanSessionField
    */
   public CleanSessionField getCleanSessionField() {
     return getFieldByClass(CleanSessionField.class);
   }
 
-  /**
-   * @return the ClientBox
-   */
-  public ClientBox getClientBox() {
-    return getFieldByClass(ClientBox.class);
-  }
+//  /**
+//   * @return the ClientBox
+//   */
+//  public ClientBox getClientBox() {
+//    return getFieldByClass(ClientBox.class);
+//  }
 
   /**
    * @return the ClientIdField
    */
   public ClientIdField getClientIdField() {
     return getFieldByClass(ClientIdField.class);
+  }
+
+  /**
+   * @return the ConfigureActionsBox
+   */
+  public ConfigureActionsBox getConfigureActionsBox() {
+    return getFieldByClass(ConfigureActionsBox.class);
+  }
+
+  /**
+   * @return the ConfigureSensorsBox
+   */
+  public ConfigureSensorsBox getConfigureSensorsBox() {
+    return getFieldByClass(ConfigureSensorsBox.class);
   }
 
   /**
@@ -256,10 +289,66 @@ public class DesktopForm extends AbstractForm {
   }
 
   /**
+   * @return the DesktopBox
+   */
+  public DesktopBox getDesktopBox() {
+    return getFieldByClass(DesktopBox.class);
+  }
+
+  /**
+   * @return the getControl1Box
+   */
+  public Control1Box getControl1Box() {
+    return getFieldByClass(Control1Box.class);
+  }
+
+  /**
+   * @return the getControl1Box
+   */
+  public Control2Box getControl2Box() {
+    return getFieldByClass(Control2Box.class);
+  }
+
+  /**
+   * @return the getControl1Box
+   */
+  public Control3Box getControl3Box() {
+    return getFieldByClass(Control3Box.class);
+  }
+
+  /**
+   * @return the Action1Button
+   */
+  public Action1Button getAction1Button() {
+    return getFieldByClass(Action1Button.class);
+  }
+
+  /**
+   * @return the Action2Button
+   */
+  public Action2Button getAction2Button() {
+    return getFieldByClass(Action2Button.class);
+  }
+
+  /**
+   * @return the Action3Button
+   */
+  public Action3Button getAction3Button() {
+    return getFieldByClass(Action3Button.class);
+  }
+
+  /**
    * @return the ControlBox
    */
   public ControlBox getControlBox() {
     return getFieldByClass(ControlBox.class);
+  }
+
+  /**
+   * @return the ActionButtonsBox
+   */
+  public ActionButtonsBox getActionButtonsBox() {
+    return getFieldByClass(ActionButtonsBox.class);
   }
 
   /**
@@ -277,24 +366,10 @@ public class DesktopForm extends AbstractForm {
   }
 
   /**
-   * @return the AlarmBox
-   */
-  public AlarmBox getAlarmBox() {
-    return getFieldByClass(AlarmBox.class);
-  }
-
-  /**
    * @return the LastWillAndTestamentBox
    */
   public LastWillAndTestamentBox getLastWillAndTestamentBox() {
     return getFieldByClass(LastWillAndTestamentBox.class);
-  }
-
-  /**
-   * @return the LightField
-   */
-  public LightField getLightField() {
-    return getFieldByClass(LightField.class);
   }
 
   /**
@@ -326,6 +401,13 @@ public class DesktopForm extends AbstractForm {
   }
 
   /**
+   * @return the MessageField
+   */
+  public MessageField getMessageField() {
+    return getFieldByClass(MessageField.class);
+  }
+
+  /**
    * @return the MessagesBox
    */
   public MessagesBox getMessagesBox() {
@@ -337,20 +419,6 @@ public class DesktopForm extends AbstractForm {
    */
   public MessagesField getMessagesField() {
     return getFieldByClass(MessagesField.class);
-  }
-
-  /**
-   * @return the OffButton
-   */
-  public OffButton getOffButton() {
-    return getFieldByClass(OffButton.class);
-  }
-
-  /**
-   * @return the OnButton
-   */
-  public OnButton getOnButton() {
-    return getFieldByClass(OnButton.class);
   }
 
   /**
@@ -382,6 +450,20 @@ public class DesktopForm extends AbstractForm {
   }
 
   /**
+   * @return the PublishBox
+   */
+  public PublishBox getPublishBox() {
+    return getFieldByClass(PublishBox.class);
+  }
+
+  /**
+   * @return the PublishButton
+   */
+  public PublishButton getPublishButton() {
+    return getFieldByClass(PublishButton.class);
+  }
+
+  /**
    * @return the PublishParametersBox
    */
   public PublishParametersBox getPublishParametersBox() {
@@ -403,38 +485,10 @@ public class DesktopForm extends AbstractForm {
   }
 
   /**
-   * @return the MessageField
-   */
-  public MessageField getMessageField() {
-    return getFieldByClass(MessageField.class);
-  }
-
-  /**
-   * @return the PublishBox
-   */
-  public PublishBox getPublishBox() {
-    return getFieldByClass(PublishBox.class);
-  }
-
-  /**
-   * @return the PublishButton
-   */
-  public PublishButton getPublishButton() {
-    return getFieldByClass(PublishButton.class);
-  }
-
-  /**
    * @return the SubscribeBox
    */
   public SubscribeBox getSubscribeBox() {
     return getFieldByClass(SubscribeBox.class);
-  }
-
-  /**
-   * @return the TopicField
-   */
-  public TopicField getTopicField() {
-    return getFieldByClass(TopicField.class);
   }
 
   /**
@@ -445,10 +499,59 @@ public class DesktopForm extends AbstractForm {
   }
 
   /**
-   * @return the SelfieField
+   * @return the Sensor1Box
    */
-  public SelfieField getSelfieField(){
-    return getFieldByClass(SelfieField.class);
+  public Sensor1Box getSensor1Box() {
+    return getFieldByClass(Sensor1Box.class);
+  }
+
+  /**
+   * @return the Sensor1Box
+   */
+  public Sensor2Box getSensor2Box() {
+    return getFieldByClass(Sensor2Box.class);
+  }
+
+  /**
+   * @return the Sensor1Box
+   */
+  public Sensor3Box getSensor3Box() {
+    return getFieldByClass(Sensor3Box.class);
+  }
+
+  /**
+   * @return the Sensor1Field
+   */
+  public Sensor1Field getSensor1Field() {
+    return getFieldByClass(Sensor1Field.class);
+  }
+
+  /**
+   * @return the Sensor2Field
+   */
+  public Sensor2Field getSensor2Field() {
+    return getFieldByClass(Sensor2Field.class);
+  }
+
+  /**
+   * @return the Sensor1Field
+   */
+  public Sensor3Field getSensor3Field() {
+    return getFieldByClass(Sensor3Field.class);
+  }
+
+  /**
+   * @return the ShowConfigurationField
+   */
+  public ShowConfigurationField getShowConfigurationField() {
+    return getFieldByClass(ShowConfigurationField.class);
+  }
+
+  /**
+   * @return the ShowConnectionConfigurationField
+   */
+  public ShowConnectionConfigurationField getShowConnectionConfigurationField() {
+    return getFieldByClass(ShowConnectionConfigurationField.class);
   }
 
   /**
@@ -494,6 +597,13 @@ public class DesktopForm extends AbstractForm {
   }
 
   /**
+   * @return the TopicField
+   */
+  public TopicField getTopicField() {
+    return getFieldByClass(TopicField.class);
+  }
+
+  /**
    * @return the TopicFilterField
    */
   public TopicFilterField getTopicFilterField() {
@@ -523,16 +633,10 @@ public class DesktopForm extends AbstractForm {
     }
 
     @Order(20.0)
-    public class ControlBox extends AbstractTabBox {
-
-      @Override
-      protected void execInitField() throws ProcessingException {
-        //TODO [mzi] Auto-generated method stub.
-        super.execInitField();
-      }
+    public class DesktopBox extends AbstractTabBox {
 
       @Order(10.0)
-      public class AlarmBox extends AbstractGroupBox {
+      public class ControlBox extends AbstractGroupBox {
 
         @Override
         protected int getConfiguredGridColumnCount() {
@@ -541,96 +645,572 @@ public class DesktopForm extends AbstractForm {
 
         @Override
         protected String getConfiguredLabel() {
-          return TEXTS.get("Alarm");
+          return TEXTS.get("Control");
         }
 
         @Order(10.0)
-        public class ButtonsBox extends AbstractSequenceBox {
+        public class ActionButtonsBox extends AbstractSequenceBox {
 
-          @Order(10.0)
-          public class LightField extends AbstractStringField {
+          @Override
+          protected String getConfiguredLabel() {
+            return TEXTS.get("Actions");
+          }
 
-            @Override
-            protected double getConfiguredGridWeightX() {
-              return 0.0;
-            }
-
-            @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("Light");
-            }
+          @Order(20.0)
+          public class Action1Button extends AbstractActionButton {
 
             @Override
-            protected int getConfiguredLabelHorizontalAlignment() {
-              return 1;
-            }
-
-            @Override
-            protected int getConfiguredWidthInPixel() {
-              return 150;
+            protected void execInitField() throws ProcessingException {
+              setControlFieldBox(getControl1Box(), this);
             }
           }
 
           @Order(30.0)
-          public class OnButton extends AbstractButton {
+          public class Action2Button extends AbstractActionButton {
 
             @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("Arm");
-            }
-
-            @Override
-            protected void execClickAction() throws ProcessingException {
-              getMqttService().publish("/ece/scout/armed", "arm", 1, false);
+            protected void execInitField() throws ProcessingException {
+              setControlFieldBox(getControl2Box(), this);
             }
           }
 
           @Order(40.0)
-          public class OffButton extends AbstractButton {
+          public class Action3Button extends AbstractActionButton {
 
             @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("Off");
+            protected void execInitField() throws ProcessingException {
+              setControlFieldBox(getControl3Box(), this);
             }
+          }
 
-            @Override
-            protected void execClickAction() throws ProcessingException {
-              getMqttService().publish("/ece/scout/armed", "disarm", 1, false);
-            }
+        }
+
+        @Order(30.0)
+        public class Sensor1Field extends AbstractSensorField {
+
+          @Override
+          protected void execInitField() throws ProcessingException {
+            setSensorFieldBox(getSensor1Box(), this);
           }
         }
 
-        @Order(20.0)
-        public class SelfieField extends AbstractImageField {
+        @Order(40.0)
+        public class Sensor2Field extends AbstractSensorField {
 
           @Override
-          protected int getConfiguredGridH() {
-            return 6;
+          protected void execInitField() throws ProcessingException {
+            setSensorFieldBox(getSensor2Box(), this);
+          }
+        }
+
+        @Order(50.0)
+        public class Sensor3Field extends AbstractSensorField {
+
+          @Override
+          protected void execInitField() throws ProcessingException {
+            setSensorFieldBox(getSensor3Box(), this);
+          }
+        }
+
+        @Order(60.0)
+        public class ShowConfigurationField extends AbstractCheckBox {
+
+          @Override
+          protected String getConfiguredLabel() {
+            return TEXTS.get("ShowConfiguration");
           }
 
           @Override
-          protected int getConfiguredHeightInPixel() {
-            return 500;
+          protected void execChangedValue() throws ProcessingException {
+            getConfigureActionsBox().setVisible(getValue());
+            getConfigureSensorsBox().setVisible(getValue());
           }
+        }
+
+        @Order(70.0)
+        public class ConfigureActionsBox extends AbstractGroupBox {
 
           @Override
-          protected int getConfiguredHorizontalAlignment() {
-            return -1;
+          protected int getConfiguredGridColumnCount() {
+            return 1;
           }
 
           @Override
           protected String getConfiguredLabel() {
-            return TEXTS.get("Selfie");
+            return TEXTS.get("ActionConfiguration");
           }
 
           @Override
-          protected int getConfiguredWidthInPixel() {
-            return 500;
+          protected boolean getConfiguredVisible() {
+            return false;
+          }
+
+          @Order(10.0)
+          public class Control1Box extends AbstractControlFieldBox {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("Action1");
+            }
+          }
+
+          @Order(20.0)
+          public class Control2Box extends AbstractControlFieldBox {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("Action2");
+            }
+          }
+
+          @Order(30.0)
+          public class Control3Box extends AbstractControlFieldBox {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("Action3");
+            }
+          }
+        }
+
+        @Order(80.0)
+        public class ConfigureSensorsBox extends AbstractGroupBox {
+
+          @Override
+          protected int getConfiguredGridColumnCount() {
+            return 1;
+          }
+
+          @Override
+          protected String getConfiguredLabel() {
+            return TEXTS.get("ConfigureSensors");
+          }
+
+          @Override
+          protected boolean getConfiguredVisible() {
+            return false;
+          }
+
+          @Order(10.0)
+          public class Sensor1Box extends AbstractSensorBox {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("Sensor1");
+            }
+          }
+
+          @Order(20.0)
+          public class Sensor2Box extends AbstractSensorBox {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("Sensor2");
+            }
+          }
+
+          @Order(30.0)
+          public class Sensor3Box extends AbstractSensorBox {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("Sensor3");
+            }
           }
         }
       }
 
-      @Order(20.0)
+      @Order(90.0)
+      public class ConnectionBox extends AbstractGroupBox {
+
+        @Override
+        protected int getConfiguredGridColumnCount() {
+          return 1;
+        }
+
+        @Override
+        protected String getConfiguredLabel() {
+          return TEXTS.get("Connection");
+        }
+
+        public void updateClientFields() throws ProcessingException {
+          boolean connected = getMqttService().isConnected();
+
+          getBrokerURLField().setEnabled(!connected);
+          getClientIdField().setEnabled(!connected);
+        }
+
+        public void updateConnectionFields() throws ProcessingException {
+          boolean connected = getMqttService().isConnected();
+
+          getUserBox().setEnabled(!connected);
+          getHidePasswordField().setEnabled(true);
+          getLastWillAndTestamentBox().setEnabled(!connected);
+        }
+
+        public void updateConnectionStatus() throws ProcessingException {
+          boolean connected = getMqttService().isConnected();
+
+          if (connected) {
+            getStatusField().setValue(TEXTS.get("Connected"));
+          }
+          else {
+            getStatusField().setValue(TEXTS.get("Disconnected"));
+          }
+
+          getConnectButton().setVisible(!connected);
+          getConnectButton().setEnabled(!connected);
+          getDisconnectButton().setVisible(connected);
+          getDisconnectButton().setEnabled(connected);
+        }
+
+        @Order(40.0)
+        public class ShowConnectionConfigurationField extends AbstractCheckBox {
+
+          @Override
+          protected String getConfiguredLabel() {
+            return TEXTS.get("ShowConfiguration");
+          }
+
+          @Override
+          protected void execChangedValue() throws ProcessingException {
+            getUserBox().setVisible(getValue());
+            getLastWillAndTestamentBox().setVisible(getValue());
+            getPublishParametersBox().setVisible(getValue());
+          }
+        }
+
+        @Order(50.0)
+        public class UserBox extends AbstractGroupBox {
+
+          @Override
+          protected String getConfiguredLabel() {
+            return TEXTS.get("Connection");
+          }
+
+          @Override
+          protected boolean getConfiguredVisible() {
+            return false;
+          }
+
+          @Override
+          protected void execInitField() throws ProcessingException {
+            updatePasswordVisibility();
+          }
+
+          private void updatePasswordVisibility() {
+            boolean hidePassword = getHidePasswordField().getValue();
+
+            if (hidePassword) {
+              getMaskedPasswordField().setValue(getPasswordField().getValue());
+            }
+            else {
+              getPasswordField().setValue(getMaskedPasswordField().getValue());
+            }
+
+            getMaskedPasswordField().setVisible(hidePassword);
+            getPasswordField().setVisible(!hidePassword);
+          }
+
+          @Order(10.0)
+          public class UserNameField extends AbstractStringField {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("UserName");
+            }
+          }
+
+          @Order(20.0)
+          public class PasswordField extends AbstractStringField {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("Password");
+            }
+          }
+
+          @Order(30.0)
+          public class MaskedPasswordField extends AbstractStringField {
+
+            @Override
+            protected boolean getConfiguredInputMasked() {
+              return true;
+            }
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("Password");
+            }
+          }
+
+          @Order(40.0)
+          public class ConnectionTimeoutField extends AbstractIntegerField {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("ConnectionTimeout");
+            }
+          }
+
+          @Order(50.0)
+          public class CleanSessionField extends AbstractCheckBox {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("CleanSession");
+            }
+          }
+
+          @Order(60.0)
+          public class HidePasswordField extends AbstractCheckBox {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("HidePassword");
+            }
+
+            @Override
+            protected void execChangedValue() throws ProcessingException {
+              updatePasswordVisibility();
+            }
+          }
+
+        }
+
+        @Order(60.0)
+        public class LastWillAndTestamentBox extends AbstractGroupBox {
+
+          @Override
+          protected String getConfiguredLabel() {
+            return TEXTS.get("LastWillAndTestament");
+          }
+
+          @Override
+          protected boolean getConfiguredVisible() {
+            return false;
+          }
+
+          @Order(10.0)
+          public class WillTopicField extends AbstractStringField {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("Topic");
+            }
+          }
+
+          @Order(20.0)
+          public class WillMessageField extends AbstractStringField {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("Message");
+            }
+          }
+
+          @Order(30.0)
+          public class WillQoSField extends AbstractIntegerField {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("QoS");
+            }
+          }
+
+          @Order(40.0)
+          public class WillRetainedField extends AbstractCheckBox {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("Retained");
+            }
+          }
+        }
+
+//        @Order(20.0)
+//        public class ClientBox extends AbstractGroupBox {
+
+//        @Override
+//        protected String getConfiguredLabel() {
+//          return TEXTS.get("Client");
+//        }
+
+        @Order(20.0)
+        public class BrokerURLField extends AbstractStringField {
+
+          @Override
+          protected String getConfiguredLabel() {
+            return TEXTS.get("BrokerURL");
+          }
+        }
+
+        @Order(30.0)
+        public class ClientIdField extends AbstractStringField {
+
+          @Override
+          protected String getConfiguredLabel() {
+            return TEXTS.get("ClientId");
+          }
+        }
+
+//        }
+
+        @Order(70.0)
+        public class PublishParametersBox extends AbstractGroupBox {
+
+          @Override
+          protected String getConfiguredLabel() {
+            return TEXTS.get("PublishParameters");
+          }
+
+          @Override
+          protected boolean getConfiguredVisible() {
+            return false;
+          }
+
+          @Order(10.0)
+          public class DefaultTopicField extends AbstractStringField {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("DefaultTopic");
+            }
+
+            @Override
+            protected String execValidateValue(String rawValue) throws ProcessingException {
+              if (StringUtility.isNullOrEmpty(rawValue)) {
+                throw new ProcessingException(TEXTS.get("topicFieldEmpty"));
+              }
+
+              return rawValue;
+            }
+          }
+
+          @Order(20.0)
+          public class DefaultQoSField extends AbstractIntegerField {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("QoS");
+            }
+
+            @Override
+            protected Integer getConfiguredMaxValue() {
+              return 2;
+            }
+
+            @Override
+            protected Integer getConfiguredMinValue() {
+              return 0;
+            }
+          }
+
+          @Order(30.0)
+          public class DefaultRetainedField extends AbstractCheckBox {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("Retained");
+            }
+          }
+        }
+
+        @Order(10.0)
+        public class StatusBox extends AbstractSequenceBox {
+
+          @Override
+          protected boolean getConfiguredAutoCheckFromTo() {
+            return false;
+          }
+
+          @Override
+          protected int getConfiguredGridW() {
+            return 2;
+          }
+
+          @Override
+          protected String getConfiguredLabel() {
+            return TEXTS.get("ClientStatus");
+          }
+
+          @Override
+          protected void execInitField() throws ProcessingException {
+            updateConnectionStatus();
+          }
+
+          @Order(20.0)
+          public class StatusField extends AbstractStringField {
+
+            @Override
+            protected boolean getConfiguredEnabled() {
+              return false;
+            }
+
+            @Override
+            protected boolean getConfiguredLabelVisible() {
+              return false;
+            }
+          }
+
+          @Order(30.0)
+          public class ConnectButton extends AbstractButton {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("Connect");
+            }
+
+            @Override
+            protected void execClickAction() throws ProcessingException {
+              getMqttService().setup(
+                  getBrokerURLField().getValue(),
+                  getClientIdField().getValue()
+                  );
+
+              getMqttService().connect(
+                  getUserNameField().getValue(),
+                  getPasswordField().getValue(),
+                  getCleanSessionField().getValue(),
+                  getConnectionTimeoutField().getValue(),
+                  getWillTopicField().getValue(),
+                  getWillMessageField().getValue(),
+                  getWillQoSField().getValue(),
+                  getWillRetainedField().getValue()
+                  );
+
+              updateClientFields();
+              updateConnectionFields();
+              updateConnectionStatus();
+            }
+          }
+
+          @Order(40.0)
+          public class DisconnectButton extends AbstractButton {
+
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("Disconnect");
+            }
+
+            @Override
+            protected void execClickAction() throws ProcessingException {
+              getMqttService().disconnect();
+
+              updateClientFields();
+              updateConnectionFields();
+              updateConnectionStatus();
+
+              if (getCleanSessionField().isChecked()) {
+                getSubscriptionsField().setTopicRowsActiveFlag(false);
+              }
+            }
+          }
+        }
+
+      }
+
+      @Order(30.0)
       public class MessagesBox extends AbstractGroupBox {
 
         @Override
@@ -915,355 +1495,7 @@ public class DesktopForm extends AbstractForm {
         }
       }
 
-      @Order(40.0)
-      public class ConnectionBox extends AbstractGroupBox {
-
-        @Override
-        protected String getConfiguredLabel() {
-          return TEXTS.get("Connection");
-        }
-
-        public void updateClientFields() throws ProcessingException {
-          boolean connected = getMqttService().isConnected();
-
-          getBrokerURLField().setEnabled(!connected);
-          getClientIdField().setEnabled(!connected);
-        }
-
-        public void updateConnectionFields() throws ProcessingException {
-          boolean connected = getMqttService().isConnected();
-
-          getUserBox().setEnabled(!connected);
-          getHidePasswordField().setEnabled(true);
-          getLastWillAndTestamentBox().setEnabled(!connected);
-        }
-
-        public void updateConnectionStatus() throws ProcessingException {
-          boolean connected = getMqttService().isConnected();
-
-          if (connected) {
-            getStatusField().setValue(TEXTS.get("Connected"));
-          }
-          else {
-            getStatusField().setValue(TEXTS.get("Disconnected"));
-          }
-
-          getConnectButton().setVisible(!connected);
-          getConnectButton().setEnabled(!connected);
-          getDisconnectButton().setVisible(connected);
-          getDisconnectButton().setEnabled(connected);
-        }
-
-        @Order(20.0)
-        public class UserBox extends AbstractGroupBox {
-
-          @Override
-          protected String getConfiguredLabel() {
-            return TEXTS.get("Connection");
-          }
-
-          @Override
-          protected void execInitField() throws ProcessingException {
-            updatePasswordVisibility();
-          }
-
-          private void updatePasswordVisibility() {
-            boolean hidePassword = getHidePasswordField().getValue();
-
-            if (hidePassword) {
-              getMaskedPasswordField().setValue(getPasswordField().getValue());
-            }
-            else {
-              getPasswordField().setValue(getMaskedPasswordField().getValue());
-            }
-
-            getMaskedPasswordField().setVisible(hidePassword);
-            getPasswordField().setVisible(!hidePassword);
-          }
-
-          @Order(10.0)
-          public class UserNameField extends AbstractStringField {
-
-            @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("UserName");
-            }
-          }
-
-          @Order(20.0)
-          public class PasswordField extends AbstractStringField {
-
-            @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("Password");
-            }
-          }
-
-          @Order(30.0)
-          public class MaskedPasswordField extends AbstractStringField {
-
-            @Override
-            protected boolean getConfiguredInputMasked() {
-              return true;
-            }
-
-            @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("Password");
-            }
-          }
-
-          @Order(40.0)
-          public class ConnectionTimeoutField extends AbstractIntegerField {
-
-            @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("ConnectionTimeout");
-            }
-          }
-
-          @Order(50.0)
-          public class CleanSessionField extends AbstractCheckBox {
-
-            @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("CleanSession");
-            }
-          }
-
-          @Order(60.0)
-          public class HidePasswordField extends AbstractCheckBox {
-
-            @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("HidePassword");
-            }
-
-            @Override
-            protected void execChangedValue() throws ProcessingException {
-              updatePasswordVisibility();
-            }
-          }
-
-        }
-
-        @Order(30.0)
-        public class LastWillAndTestamentBox extends AbstractGroupBox {
-
-          @Override
-          protected String getConfiguredLabel() {
-            return TEXTS.get("LastWillAndTestament");
-          }
-
-          @Order(10.0)
-          public class WillTopicField extends AbstractStringField {
-
-            @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("Topic");
-            }
-          }
-
-          @Order(20.0)
-          public class WillMessageField extends AbstractStringField {
-
-            @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("Message");
-            }
-          }
-
-          @Order(30.0)
-          public class WillQoSField extends AbstractIntegerField {
-
-            @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("QoS");
-            }
-          }
-
-          @Order(40.0)
-          public class WillRetainedField extends AbstractCheckBox {
-
-            @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("Retained");
-            }
-          }
-        }
-
-        @Order(10.0)
-        public class ClientBox extends AbstractGroupBox {
-
-          @Override
-          protected String getConfiguredLabel() {
-            return TEXTS.get("Client");
-          }
-
-          @Order(50.0)
-          public class BrokerURLField extends AbstractStringField {
-
-            @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("BrokerURL");
-            }
-          }
-
-          @Order(60.0)
-          public class ClientIdField extends AbstractStringField {
-
-            @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("ClientId");
-            }
-          }
-        }
-
-        @Order(40.0)
-        public class PublishParametersBox extends AbstractGroupBox {
-
-          @Override
-          protected String getConfiguredLabel() {
-            return TEXTS.get("PublishParameters");
-          }
-
-          @Order(10.0)
-          public class DefaultTopicField extends AbstractStringField {
-
-            @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("DefaultTopic");
-            }
-
-            @Override
-            protected String execValidateValue(String rawValue) throws ProcessingException {
-              if (StringUtility.isNullOrEmpty(rawValue)) {
-                throw new ProcessingException(TEXTS.get("topicFieldEmpty"));
-              }
-
-              return rawValue;
-            }
-          }
-
-          @Order(20.0)
-          public class DefaultQoSField extends AbstractIntegerField {
-
-            @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("QoS");
-            }
-
-            @Override
-            protected Integer getConfiguredMaxValue() {
-              return 2;
-            }
-
-            @Override
-            protected Integer getConfiguredMinValue() {
-              return 0;
-            }
-          }
-
-          @Order(30.0)
-          public class DefaultRetainedField extends AbstractCheckBox {
-
-            @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("Retained");
-            }
-          }
-        }
-
-        @Order(5.0)
-        public class StatusBox extends AbstractSequenceBox {
-
-          @Override
-          protected boolean getConfiguredAutoCheckFromTo() {
-            return false;
-          }
-
-          @Override
-          protected int getConfiguredGridW() {
-            return 2;
-          }
-
-          @Override
-          protected boolean getConfiguredLabelVisible() {
-            return false;
-          }
-
-          @Override
-          protected void execInitField() throws ProcessingException {
-            updateConnectionStatus();
-          }
-
-          @Order(20.0)
-          public class StatusField extends AbstractStringField {
-
-            @Override
-            protected boolean getConfiguredEnabled() {
-              return false;
-            }
-
-            @Override
-            protected boolean getConfiguredLabelVisible() {
-              return false;
-            }
-          }
-
-          @Order(30.0)
-          public class ConnectButton extends AbstractButton {
-
-            @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("Connect");
-            }
-
-            @Override
-            protected void execClickAction() throws ProcessingException {
-              getMqttService().setup(
-                  getBrokerURLField().getValue(),
-                  getClientIdField().getValue()
-                  );
-
-              getMqttService().connect(
-                  getUserNameField().getValue(),
-                  getPasswordField().getValue(),
-                  getCleanSessionField().getValue(),
-                  getConnectionTimeoutField().getValue(),
-                  getWillTopicField().getValue(),
-                  getWillMessageField().getValue(),
-                  getWillQoSField().getValue(),
-                  getWillRetainedField().getValue()
-                  );
-
-              updateClientFields();
-              updateConnectionFields();
-              updateConnectionStatus();
-            }
-          }
-
-          @Order(40.0)
-          public class DisconnectButton extends AbstractButton {
-
-            @Override
-            protected String getConfiguredLabel() {
-              return TEXTS.get("Disconnect");
-            }
-
-            @Override
-            protected void execClickAction() throws ProcessingException {
-              getMqttService().disconnect();
-
-              updateClientFields();
-              updateConnectionFields();
-              updateConnectionStatus();
-            }
-          }
-        }
-      }
-
-      @Order(30.0)
+      @Order(70.0)
       public class SubscriptionsBox extends AbstractGroupBox {
 
         @Override
@@ -1318,18 +1550,22 @@ public class DesktopForm extends AbstractForm {
               }
 
               Iterator<ITableRow> topics = getSubscriptionsField().getTable().getRows().iterator();
-              boolean newTopic = true;
+              boolean subscribedTopic = false;
 
               while (topics.hasNext()) {
-                String rowTopic = (String) topics.next().getKeyValues().get(0);
-                if (rowTopic.equals(topic)) {
-                  newTopic = false;
+                ITableRow row = topics.next();
+
+                String rowTopic = (String) row.getKeyValues().get(0);
+                Boolean active = (Boolean) row.getCell(2).getValue();
+
+                if (rowTopic.equals(topic) && active) {
+                  subscribedTopic = true;
                   break;
                 }
               }
 
-              getSubscribeButton().setEnabled(newTopic);
-              getUnsubscribeButton().setEnabled(true);
+              getSubscribeButton().setEnabled(!subscribedTopic);
+              getUnsubscribeButton().setEnabled(subscribedTopic);
             }
           }
 
@@ -1373,7 +1609,7 @@ public class DesktopForm extends AbstractForm {
               getMqttService().subscribe(topic, qos);
               getSubscribeButton().setEnabled(false);
               getUnsubscribeButton().setEnabled(true);
-              addTopicRow(topic, qos);
+              addTopicRow(topic, qos, true);
             }
           }
 
@@ -1392,7 +1628,8 @@ public class DesktopForm extends AbstractForm {
               getMqttService().unsubscribe(topic);
               getSubscribeButton().setEnabled(true);
               getUnsubscribeButton().setEnabled(false);
-              removeTopicRow(topic);
+
+              setTopicRowActiveFlag(topic, false);
             }
           }
         }
@@ -1410,6 +1647,15 @@ public class DesktopForm extends AbstractForm {
             return false;
           }
 
+          public void setTopicRowsActiveFlag(boolean active) {
+            try {
+              getTable().getActiveColumn().fill(active);
+            }
+            catch (ProcessingException e) {
+              // nop
+            }
+          }
+
           @Order(10.0)
           public class Table extends AbstractExtensibleTable {
 
@@ -1423,6 +1669,13 @@ public class DesktopForm extends AbstractForm {
                 getTopicFilterField().setValue(null);
                 getTopicQoSField().setValue(null);
               }
+            }
+
+            /**
+             * @return the ActiveColumn
+             */
+            public ActiveColumn getActiveColumn() {
+              return getColumnSet().getColumnByClass(ActiveColumn.class);
             }
 
             /**
@@ -1472,6 +1725,15 @@ public class DesktopForm extends AbstractForm {
               }
             }
 
+            @Order(30.0)
+            public class ActiveColumn extends AbstractBooleanColumn {
+
+              @Override
+              protected String getConfiguredHeaderText() {
+                return TEXTS.get("Active");
+              }
+            }
+
             @Order(10.0)
             public class UnsubscribeMenu extends AbstractExtensibleMenu {
 
@@ -1482,7 +1744,32 @@ public class DesktopForm extends AbstractForm {
 
               @Override
               protected void execAction() throws ProcessingException {
+                // TODO update subscribe/unsubscribe buttons
                 getUnsubscribeButton().execClickAction();
+              }
+            }
+
+            @Order(20.0)
+            public class SubscribeMenu extends AbstractExtensibleMenu {
+
+              @Override
+              protected String getConfiguredText() {
+                return TEXTS.get("Subscribe");
+              }
+
+              @Override
+              protected void execAction() throws ProcessingException {
+                for (ITableRow row : getSelectedRows()) {
+                  Cell cell = row.getCellForUpdate(2);
+                  Boolean active = (Boolean) cell.getValue();
+
+                  if (!active) {
+                    String topic = (String) row.getCellForUpdate(0).getValue();
+                    Integer qos = (Integer) row.getCellForUpdate(1).getValue();
+                    getMqttService().subscribe(topic, qos);
+                    cell.setValue(true);
+                  }
+                }
               }
             }
           }
@@ -1505,31 +1792,39 @@ public class DesktopForm extends AbstractForm {
         }
       }
     }
+  }
 
-    private ITableRow getTopicRow(String topic) {
-      List<String> topicKey = new ArrayList<>();
-      ITableRow row = null;
+  private ITableRow getTopicRow(String topic) {
+    List<String> topicKey = new ArrayList<>();
+    ITableRow row = null;
 
-      topicKey.add(topic);
-      row = getSubscriptionsField().getTable().findRowByKey(topicKey);
+    topicKey.add(topic);
+    row = getSubscriptionsField().getTable().findRowByKey(topicKey);
 
-      return row;
+    return row;
+  }
+
+  public void addTopicRow(String topic, Integer qos, Boolean active) throws ProcessingException {
+    ITableRow row = getTopicRow(topic);
+
+    if (row == null) {
+      getSubscriptionsField().getTable().addRowByArray(new Object[]{topic, qos, active});
     }
+  }
 
-    private void addTopicRow(String topic, Integer qos) throws ProcessingException {
-      ITableRow row = getTopicRow(topic);
+  private void removeTopicRow(String topic) throws ProcessingException {
+    ITableRow row = getTopicRow(topic);
 
-      if (row == null) {
-        getSubscriptionsField().getTable().addRowByArray(new Object[]{topic, qos});
-      }
+    if (row != null) {
+      getSubscriptionsField().getTable().deleteRow(row);
     }
+  }
 
-    private void removeTopicRow(String topic) throws ProcessingException {
-      ITableRow row = getTopicRow(topic);
+  private void setTopicRowActiveFlag(String topic, boolean active) throws ProcessingException {
+    ITableRow row = getTopicRow(topic);
 
-      if (row != null) {
-        getSubscriptionsField().getTable().deleteRow(row);
-      }
+    if (row != null) {
+      getSubscriptionsField().getTable().getActiveColumn().setValue(row, active);
     }
   }
 
