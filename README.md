@@ -15,3 +15,4 @@ For the software you need the following components:
 * eclipse scout
 * arduino ide
 
+![Arduino lamp off](/images/arduino_lamp_off_on.png)
