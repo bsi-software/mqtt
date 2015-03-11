@@ -172,7 +172,7 @@ public class DesktopForm extends AbstractForm {
     UserPreferencesService prefs = SERVICES.getService(UserPreferencesService.class);
 
     // set parameters for current demo
-    String baseTopic = "/eclipse/scout/arduino/";
+    String baseTopic = "eclipse/scout/arduino/";
 
     getControl1Box().getLabelField().setValue(" ON ");
     getControl1Box().getTopicField().setValue(baseTopic);
@@ -238,13 +238,6 @@ public class DesktopForm extends AbstractForm {
   public CleanSessionField getCleanSessionField() {
     return getFieldByClass(CleanSessionField.class);
   }
-
-//  /**
-//   * @return the ClientBox
-//   */
-//  public ClientBox getClientBox() {
-//    return getFieldByClass(ClientBox.class);
-//  }
 
   /**
    * @return the ClientIdField
@@ -1028,14 +1021,6 @@ public class DesktopForm extends AbstractForm {
           }
         }
 
-//        @Order(20.0)
-//        public class ClientBox extends AbstractGroupBox {
-
-//        @Override
-//        protected String getConfiguredLabel() {
-//          return TEXTS.get("Client");
-//        }
-
         @Order(20.0)
         public class BrokerURLField extends AbstractStringField {
 
@@ -1053,8 +1038,6 @@ public class DesktopForm extends AbstractForm {
             return TEXTS.get("ClientId");
           }
         }
-
-//        }
 
         @Order(70.0)
         public class PublishParametersBox extends AbstractGroupBox {
