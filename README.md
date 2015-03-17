@@ -10,20 +10,25 @@ This project lets you control your AC desktop lamp and read sensor data using yo
 
 In the final setup the Raspberry Pi, the Arduino and the computer are all connected to the same wireless network. Both the Arduino and the computer will act as MQTT Clients that are connected to the MQTT broker running on the Raspberry Pi. The And the mobile phone to control the desktop lamp is using a HTML5 application that connects over HTTP to the web server running on computer.
 
-### Components
+For the communication between the Arduino, the broker and the computer the [MQTT](http://mqtt.org/) protocol is used. This protocol was designed as an extremely lightweight publish/subscribe messaging transport and is working well for internet of things (IoT) applications. All components are communicating over the same wireless network.
 
-#### Hardware
+To simplify the setup and/or save costs and time you have the following options:
+* Remove Raspberry and Mosquitto from the project. Use a public MQTT broker instead: tcp://iot.eclipse.org:1883
+* Remove the nano USB wireless adapter and replace the Arduino WiFi shield with an Ethernet shield. Use Ethernet cables instead of wireless connections
+
+### Hardware
 * Desktop lamp, relay module, and a modified power cable
 * Mobile Phone
 * Computer
 * Arduino Uno with an Arduino Wifi Shield
 * Breadboard, some LEDs, a Light-dependent Resistor (LDR) a normal resitor, cables
-* Raspberry Pi (optional, used to run the MQTT broker)
+* Raspberry Pi with a nano USB wireless adapter
 * Wireless network
 
-#### Software
-* **Eclipse Paho** for the MQTT client on the computer
-* **Eclipse Mosquitto** as the MQTT broker
-* **Eclipse Scout** for the tooling and runtime to build the user interface (this includes the Eclipse IDE)
-* **Arduino Software (IDE)** to program the Arduino using the computer
+### Software
+* [Eclipse Paho](https://eclipse.org/paho/) for the MQTT client on the computer
+* [Eclipse Mosquitto](https://www.eclipse.org/mosquitto/) as the MQTT broker
+* [Eclipse Scout](https://eclipse.org/scout/) for the tooling and runtime to build the user interface
+* [Arduino Software (IDE)](http://arduino.cc/en/main/software) to program the Arduino using the computer
+* [Arduino Client for MQTT](http://knolleary.net/arduino-client-for-mqtt/)
 
