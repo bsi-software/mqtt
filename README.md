@@ -6,7 +6,7 @@
 
 ### The Final Setup
 
-This project lets you control your AC desktop lamp and read sensor data using your mobile phone. The project was presented at the session [Build Your Open Source IoT Project from A to Z](https://www.doag.org/konferenz/konferenzplaner/konferenzplaner_details.php?locS=0&id=483801&vid=491425) at [JavaLand 2015](http://www.javaland.eu/javaland-2015/).
+This project lets you control your AC desktop lamp and read sensor data using your mobile phone. The project was presented at the session [Build Your Open Source IoT Project from A to Z](https://www.doag.org/konferenz/konferenzplaner/konferenzplaner_details.php?locS=0&id=483801&vid=491425) at [JavaLand 2015](http://www.javaland.eu/javaland-2015/) using [these slides](https://wiki.eclipse.org/images/3/35/150318_open_source_iot_printing.pdf).
 
 In the final setup the Raspberry Pi, the Arduino and the computer are all connected to the same wireless network. Both the Arduino and the computer will act as MQTT Clients that are connected to the MQTT broker running on the Raspberry Pi. The And the mobile phone to control the desktop lamp is using a HTML5 application that connects over HTTP to the web server running on computer.
 
